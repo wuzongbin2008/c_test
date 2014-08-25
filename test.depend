@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1408951442 source:/project/c/test/main.c
+	<stdio.h>
+	<stdlib.h>
+	"matrix_opt.h"
+
+1408951395 /project/c/test/matrix_opt.h
+
+1408951548 source:/project/c/test/matrix_opt.c
+	<stdio.h>
+	<stdlib.h>
+	"matrix_opt.h"
+
