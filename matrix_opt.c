@@ -67,7 +67,7 @@ double *MatrixInver(double   A[],int   m,int   n)             //矩阵转置
     return   B;
 }
 
-double Surplus(double   A[],int   m,int   n)                   //求矩阵行列式
+double Surplus(double   A[],int   m,int   n)                 //求矩阵行列式
 {
     int   i,j,k,p,r;
     double   X,temp=1,temp1=1,s=0,s1=0;
@@ -120,7 +120,8 @@ double *MatrixOpp(double   A[],int   m,int   n)               //矩阵求逆
     B=(double   *)malloc(m*n*sizeof(double));
     X=Surplus(A,m,n);
     X=1/X;
-    for(i=0; i<m; i++)                             //求矩阵伴随矩阵
+    for(i=0; i<m; i++)                            //求矩阵伴随矩阵
+    {
         for(j=0; j<n; j++)
         {
             for(k=0; k<m*n; k++)
@@ -135,6 +136,7 @@ double *MatrixOpp(double   A[],int   m,int   n)               //矩阵求逆
                 AB[i*n+j]=X*SP[i*n+j];
             }
         }
+    }
     C=MatrixInver(AB,m,n);                         //MatrixInver  求倒置
     return   C;
 }
