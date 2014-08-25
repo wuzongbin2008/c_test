@@ -300,8 +300,6 @@ int rinv(double a[],int n)
     return(1);
 }
 
-//  int m,n,k;
-//  double ar[],ai[],br[],bi[],cr[],ci[];
 void trmul(double *a,double *b,int m,int n,int k,double *c)
 {
     int i,j,l,u;
