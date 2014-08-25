@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <malloc.h>
 
-double *C,a[100];
+#include "matrix_opt.h"
+
+double *C,a[10] = {1,2,3,0,1,4,0,0,1};
 double   *MatrixInver(double   A[],int   m,int   n)             //矩阵转置
 {
     int   i,j;
@@ -88,18 +90,20 @@ double   *MatrixOpp(double   A[],int   m,int   n)               //矩阵求逆
 int main()
 {
     int m,n,i,j;
-    while(scanf("%d%d",&m,&n)!=EOF)                               //求m*n阶矩阵的逆运算
+    m = 3;
+    n = 3;
+
+    //printf("%lf\n",Surplus(a,m,n));           //输出行列式
+    print_multiply();
+    printf("\n");
+    MatrixOpp(a, m,n);
+    for(i=0; i<m*n; i++)
     {
-        for(i=0; i<m*n; i++)
-            scanf("%lf",&a[i]);//printf("%lf\n",Surplus(a,m,n));           //输出行列式
-        MatrixOpp(a, m,n);
-        for(i=0; i<m*n; i++)
-        {
-            printf("%.5f ",C[i]);
-            if(!((i+1)%m))
-                printf("\n");
-        }
+        printf("%.5f ",C[i]);
+        if(!((i+1)%m))
+            printf("\n");
     }
+
     return 0;
 }
 

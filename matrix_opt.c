@@ -55,7 +55,7 @@ void trmul(double a[][5],double b[][3],int m,int n,int k,double c[][3])
     }
 }
 
-void print_double_trmul(){
+void print_multiply(){
     int i,j;
     double a[4][5]= {
         {1.0,3.0,-2.0,0.0,4.0},
