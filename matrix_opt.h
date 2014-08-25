@@ -11,5 +11,6 @@ int *MatrixInver(int   A[],int   m,int   n);
 int Surplus(int   A[],int   m,int   n);
 int *MatrixOpp(int   A[],int   m,int   n);
 void print_multiply();
+void tcmul(double *ar,double *br,int m,int n,int k,double *cr);
 
 #endif // MATRIX_OPT_H_INCLUDED
