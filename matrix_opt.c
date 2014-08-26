@@ -3,16 +3,87 @@
 
 #include "matrix_opt.h"
 
+#define K 10
+#define M 3
+
+void van_matrix_multiply()
+{
+    int i, j;
+    int blocksize = 10;
+    int van_matrix[M][K]=
+    {
+        { 1,1,1,1,1,1,1,1,1,1},
+        { 1,2,3,4,5,6,7,8,9,10},
+        { 1,4,9,16,25,36,49,64,81,100}
+    };
+    char  **data;
+    char  **coding;
+    char *r1,*r3;
+    long *l1;
+    long *l3;
+    char *ctop;
+    long *ltop;
+    char *t;
+
+    /* Allocate data and coding */
+    data = ( char  **)malloc(sizeof( char *)*K);
+    coding = ( char  **)malloc(sizeof( char *)*M);
+    for (i = 0; i < M; i++)
+    {
+        coding[i] = ( char  *)calloc(blocksize,sizeof( char ));
+    }
+    for(i=0; i<K; i++)
+    {
+        data[i] = ( char  *)calloc(blocksize,sizeof( char ));
+        if(i==0)
+        {
+            data[i] = "abcdefghij";
+        }
+        if(i==1){
+            data[i] = "klmnopqrst";
+        }
+    }
+
+    //do multiply
+    long  *ld;
+    long  *cd;
+    for(i=0; i < M; i++)
+    {
+        for( j=0; j < K; j++)
+        {
+            l3 = (  long  *)coding[i];
+            r1 = data[j];
+            ctop = r1 + blocksize;
+            ltop = (long *) ctop;
+            l1 = (long *) r1;
+
+            while (l1 < ltop)
+            {
+                printf("j=%d\ns_l1 = %s\nl1=%ld\n",j,l1,*l1);
+                printf("van_matrix[%d][%d] = %d\n",i,j,van_matrix[i][j] );
+                (*l3) = (*l3) + van_matrix[i][j] * (*l1);
+                printf("l3 = %ld\ns_l3=%s\n\n",*l3,l3);
+                l1++;
+                l3++;
+            }
+            if(j > 0) break;
+            //printf("l3 = %ld\ncoding[i]=\n\n",*l3,i,coding[i]);
+        }
+        printf("coding[%d] = %s\n\n\n",i,coding[i]);
+        //break;
+    }
+}
+
 void int_matrix_multiply()
 {
-    int a[2][2]={{ 1, 1},{ 2, 0}};
-    int b[2][3]={{ 0, 2, 3},{ 1, 1, 2}};
+    int a[2][2]= {{ 1, 1},{ 2, 0}};
+    int b[2][3]= {{ 0, 2, 3},{ 1, 1, 2}};
     // int i, j, k, s[2][3];
     //问题出现在这里，s[2][3]没有赋初值，看得出来吗。
     //而你在下面的循坏里面，就直接用了 ==>s[i][j]=s[i][j]+a[i][k]*b[k][j];
     //将代码改成下面的，就得到你要的结果了
     //其他地方没有出现什么错误。修改过后，就是你要的答案了
-    int i, j, k, s[2][3]={0};
+    int i, j, k, s[2][3]= {0};
     for(i=0; i<2; i++)
     {
         for( j=0; j<3; j++)
@@ -23,12 +94,14 @@ void int_matrix_multiply()
             }
         }
     }
-    for(i=0;i<2;i++)
-    for(j=0;j<3;j++)
+    for(i=0; i<2; i++)
     {
-        printf("%d\t",s[i][j]);
-        if(j==2)
-        printf("\n");
+        for(j=0; j<3; j++)
+        {
+            printf("%d\t",s[i][j]);
+            if(j==2)
+                printf("\n");
+        }
     }
 
 }
@@ -43,7 +116,8 @@ void double_matrix_multiply(double a[][5],double b[][3],int m,int n,int k,double
         for (j=0; j<k; j++)
         {
             ct = c[i][j] = 0.0;
-            for (l=0; l<n; l++){
+            for (l=0; l<n; l++)
+            {
                 at = a[i][l];
                 bt = b[l][j];
 
@@ -144,13 +218,15 @@ double *MatrixOpp(double   A[],int   m,int   n)               //矩阵求逆
 void print_multiply()
 {
     int i,j;
-    double a[4][5]= {
+    double a[4][5]=
+    {
         {1.0,3.0,-2.0,0.0,4.0},
         {-2.0,-1.0,5.0,-7.0,2.0},
         {0.0,8.0,4.0,1.0,-5.0},
         {3.0,-3.0,2.0,-4.0,1.0}
     };
-    double b[5][3]= {
+    double b[5][3]=
+    {
         {4.0,5.0,-1.0},
         {2.0,-2.0,6.0},
         {7.0,8.0,1.0},
