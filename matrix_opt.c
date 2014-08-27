@@ -3,52 +3,23 @@
 
 #include "matrix_opt.h"
 
-#define K 10
-#define M 3
-
-void van_matrix_multiply()
+void van_matrix_encode(int *matrix,char **data,char **coding,int blocksize)
 {
     int i, j;
-    int blocksize = 10;
-    int van_matrix[M][K]=
-    {
-        { 1,1,1,1,1,1,1,1,1,1},
-        { 1,2,3,4,5,6,7,8,9,10},
-        { 1,4,9,16,25,36,49,64,81,100}
-    };
-    char  **data;
-    char  **coding;
     char *r1,*r3;
     long *l1;
     long *l3;
     char *ctop;
     long *ltop;
     char *t;
-
-    /* Allocate data and coding */
-    data = ( char  **)malloc(sizeof( char *)*K);
-    coding = ( char  **)malloc(sizeof( char *)*M);
-    for (i = 0; i < M; i++)
-    {
-        coding[i] = ( char  *)calloc(blocksize,sizeof( char ));
-    }
-    for(i=0; i<K; i++)
-    {
-        data[i] = ( char  *)calloc(blocksize,sizeof( char ));
-        if(i==0)
-        {
-            data[i] = "abcdefghij";
-        }
-        if(i==1){
-            data[i] = "klmnopqrst";
-        }
-    }
+    int *matrix_row;
 
     //do multiply
     long  *ld;
     long  *cd;
     for(i=0; i < M; i++)
     {
+        matrix_row = matrix+(i*K);
         for( j=0; j < K; j++)
         {
             l3 = (  long  *)coding[i];
@@ -59,19 +30,20 @@ void van_matrix_multiply()
 
             while (l1 < ltop)
             {
-                printf("j=%d\ns_l1 = %s\nl1=%ld\n",j,l1,*l1);
-                printf("van_matrix[%d][%d] = %d\n",i,j,van_matrix[i][j] );
-                (*l3) = (*l3) + van_matrix[i][j] * (*l1);
-                printf("l3 = %ld\ns_l3=%s\n\n",*l3,l3);
+                //printf("j=%d\ns_l1 = %s\nl1=%ld\n",j,l1,*l1);
+                //printf("matrix_row[%d][%d] = %d\n",i,j,matrix_row[i][j] );
+                (*l3) = (*l3) + matrix_row[j] * (*l1);
+                //printf("l3 = %ld\ns_l3=%s\n\n",*l3,l3);
                 l1++;
                 l3++;
             }
-            if(j > 0) break;
+            //if(j > 0) break;
             //printf("l3 = %ld\ncoding[i]=\n\n",*l3,i,coding[i]);
         }
-        printf("coding[%d] = %s\n\n\n",i,coding[i]);
+        //printf("coding[%d] = %s\n\n\n",i,coding[i]);
         //break;
     }
+
 }
 
 void int_matrix_multiply()
