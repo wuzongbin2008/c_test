@@ -46,6 +46,23 @@ void van_matrix_encode(int *matrix,char **data,char **coding,int blocksize)
 
 }
 
+void generate_decode_matrix(int *matrix)
+{
+//    for(i=2;i<10;i++){
+//        printf("{");
+//        for(j=0;j<10;j++){
+//            if(i==j)
+//            {
+//                van_decode_matrix[i][j] = 1;
+//            }else{
+//                van_decode_matrix[i][j] = 0;
+//            }
+//            printf("%d,",van_decode_matrix[i][j]);
+//        }
+//        printf("},\n");
+//    }
+}
+
 void int_matrix_multiply()
 {
     int a[2][2]= {{ 1, 1},{ 2, 0}};
@@ -78,10 +95,10 @@ void int_matrix_multiply()
 
 }
 
-void double_matrix_multiply(double a[][5],double b[][3],int m,int n,int k,double c[][3])
+void int_matrix_multiply2(int a[][5],int b[][3],int m,int n,int k,int c[][3])
 {
     int i,j,l,u;
-    double at,bt,ct;
+    int at,bt,ct;
     //m=4 k=3 n=5
     for (i=0; i<m; i++)
     {
@@ -101,11 +118,11 @@ void double_matrix_multiply(double a[][5],double b[][3],int m,int n,int k,double
     }
 }
 
-double *MatrixInver(double   A[],int   m,int   n)             //矩阵转置
+int *MatrixInver(int   A[],int   m,int   n)             //矩阵转置
 {
     int   i,j;
-    double   *B=NULL;
-    B=(double   *)malloc(m*n*sizeof(double));
+    int   *B=NULL;
+    B=(int   *)malloc(m*n*sizeof(int));
 
     for(i=0; i <n; i++)
         for(j=0; j <m; j++)
@@ -113,10 +130,10 @@ double *MatrixInver(double   A[],int   m,int   n)             //矩阵转置
     return   B;
 }
 
-double Surplus(double   A[],int   m,int   n)                 //求矩阵行列式
+int Surplus(int   A[],int   m,int   n)                 //求矩阵行列式
 {
     int   i,j,k,p,r;
-    double   X,temp=1,temp1=1,s=0,s1=0;
+    int   X,temp=1,temp1=1,s=0,s1=0;
     if(n==2)
     {
         for(i=0; i <m; i++)
@@ -156,14 +173,14 @@ double Surplus(double   A[],int   m,int   n)                 //求矩阵行列�
     return   X;
 }
 
-double *MatrixOpp(double   A[],int   m,int   n)               //矩阵求逆
+int *MatrixOpp(int   A[],int   m,int   n)               //矩阵求逆
 {
     int   i,j,x,y,k;
-    double *C;
-    double   *SP=NULL,*AB=NULL,*B=NULL,X;                  //*C;
-    SP=(double   *)malloc(m*n*sizeof(double));
-    AB=(double   *)malloc(m*n*sizeof(double));
-    B=(double   *)malloc(m*n*sizeof(double));
+    int *C;
+    int   *SP=NULL,*AB=NULL,*B=NULL,X;                  //*C;
+    SP=(int   *)malloc(m*n*sizeof(int));
+    AB=(int   *)malloc(m*n*sizeof(int));
+    B=(int   *)malloc(m*n*sizeof(int));
     X=Surplus(A,m,n);
     X=1/X;
     for(i=0; i<m; i++)                            //求矩阵伴随矩阵
@@ -190,14 +207,14 @@ double *MatrixOpp(double   A[],int   m,int   n)               //矩阵求逆
 void print_multiply()
 {
     int i,j;
-    double a[4][5]=
+    int a[4][5]=
     {
         {1.0,3.0,-2.0,0.0,4.0},
         {-2.0,-1.0,5.0,-7.0,2.0},
         {0.0,8.0,4.0,1.0,-5.0},
         {3.0,-3.0,2.0,-4.0,1.0}
     };
-    double b[5][3]=
+    int b[5][3]=
     {
         {4.0,5.0,-1.0},
         {2.0,-2.0,6.0},
@@ -205,7 +222,7 @@ void print_multiply()
         {0.0,3.0,-5.0},
         {9.0,8.0,-6.0}
     };
-    double c[4][3];
+    int c[4][3];
 
-    double_matrix_multiply(a,b,4,5,3,c);
+    int_matrix_multiply(a,b,4,5,3,c);
 }

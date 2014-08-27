@@ -15,6 +15,21 @@ int main()
         { 1,2,3,4,5,6,7,8,9,10},
         { 1,4,9,16,25,36,49,64,81,100}
     };
+    int van_decode_matrix[10][10] =
+    {
+        {0,0,1,0,0,0,0,0,0,0,},
+        {0,0,0,1,0,0,0,0,0,0,},
+        {0,0,0,0,1,0,0,0,0,0,},
+        {0,0,0,0,0,1,0,0,0,0,},
+        {0,0,0,0,0,0,1,0,0,0,},
+        {0,0,0,0,0,0,0,1,0,0,},
+        {0,0,0,0,0,0,0,0,1,0,},
+        {0,0,0,0,0,0,0,0,0,1,},
+        { 1,1,1,1,1,1,1,1,1,1},
+        { 1,2,3,4,5,6,7,8,9,10},
+        { 1,4,9,16,25,36,49,64,81,100}
+    };
+    int *c;
 
     /* Allocate data and coding */
     data = ( char  **)malloc(sizeof( char *)*K);
@@ -31,23 +46,23 @@ int main()
             data[i] = "abcdefghij";
         }
         if(i==1){
-            data[i] = "klmnopqrst";
+            //data[i] = "klmnopqrst";
         }
     }
 
     van_matrix_encode(van_encode_matrix,data,coding,blocksize);
 
-    printf("coding[%d] = %s\n\n\n",0,coding[0]);
+    printf("\ncoding[%d] = %s\n\n\n",0,coding[0]);
     printf("coding[%d] = %s\n\n\n",1,coding[1]);
     printf("coding[%d] = %s\n\n\n",2,coding[2]);
 
-//    c = MatrixOpp(a, m,n);
-//    for(i=0; i<m*n; i++)
-//    {
-//        printf("%.5f ",c[i]);
-//        if(!((i+1)%m))
-//            printf("\n");
-//    }
+    c = MatrixOpp(van_decode_matrix,10,10);
+    for(i=0; i<100; i++)
+    {
+        printf("%d ",c[i]);
+        if(!((i+1)%10))
+            printf("\n");
+    }
 
     return 0;
 }
