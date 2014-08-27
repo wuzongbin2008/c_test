@@ -5,7 +5,7 @@
 
 int main()
 {
-    int i,j;
+    int i,j,n,m;
     char  **data;
     char  **coding;
     int blocksize = 32;
@@ -17,7 +17,7 @@ int main()
     };
     int van_decode_matrix[10][10] =
     {
-        {0,0,1,0,0,0,0,0,0,0,},
+        //{0,0,1,0,0,0,0,0,0,0,},
         {0,0,0,1,0,0,0,0,0,0,},
         {0,0,0,0,1,0,0,0,0,0,},
         {0,0,0,0,0,1,0,0,0,0,},
@@ -52,15 +52,21 @@ int main()
 
     van_matrix_encode(van_encode_matrix,data,coding,blocksize);
 
-    printf("\ncoding[%d] = %s\n\n\n",0,coding[0]);
-    printf("coding[%d] = %s\n\n\n",1,coding[1]);
-    printf("coding[%d] = %s\n\n\n",2,coding[2]);
-
-    c = MatrixOpp(van_decode_matrix,10,10);
-    for(i=0; i<100; i++)
+//    printf("\ncoding[%d] = %s\n\n\n",0,coding[0]);
+//    printf("coding[%d] = %s\n\n\n",1,coding[1]);
+//    printf("coding[%d] = %s\n\n\n",2,coding[2]);
+    n = m = 10;
+    int demo[3][3] =
+    {
+        {1,2,3},
+        {0,1,4},
+        {0,0,1}
+    };
+    c = MatrixOpp(van_decode_matrix,n,m);
+    for(i=0; i<n*m; i++)
     {
         printf("%d ",c[i]);
-        if(!((i+1)%10))
+        if(!((i+1)%n))
             printf("\n");
     }
 

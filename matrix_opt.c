@@ -122,7 +122,7 @@ int *MatrixInver(int   A[],int   m,int   n)             //矩阵转置
 {
     int   i,j;
     int   *B=NULL;
-    B=(int   *)malloc(m*n*sizeof(int));
+    B=(int  *)malloc(m*n*sizeof(int));
 
     for(i=0; i <n; i++)
         for(j=0; j <m; j++)
