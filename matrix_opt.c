@@ -1,67 +1,261 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 #include "matrix_opt.h"
 
-void van_matrix_encode(int *matrix,char **data,char **coding,int blocksize)
+void van_matrix_encode(int col,int row,double *matrix,char **data,char **coding,int blocksize)
 {
     int i, j;
-    char *r1,*r3;
-    long *l1;
-    long *l3;
-    char *ctop;
-    long *ltop;
     char *t;
-    int *matrix_row;
+    char *r1;
+    double *l1;
+    char *ctop;
+    double *ltop;
+    double  *ld;
+    double  *cd;
+    double *l3;
+    double *matrix_row,tmp;
 
-    //do multiply
-    long  *ld;
-    long  *cd;
-    for(i=0; i < M; i++)
+    for(i=0; i < row; i++)
     {
-        matrix_row = matrix+(i*K);
-        for( j=0; j < K; j++)
+        matrix_row = matrix+(i*col);
+        l3 = (  double  *)coding[i];
+        for( j=0; j < col; j++)
         {
-            l3 = (  long  *)coding[i];
             r1 = data[j];
             ctop = r1 + blocksize;
-            ltop = (long *) ctop;
-            l1 = (long *) r1;
+            ltop = (double *) ctop;
+            l1 = (double *) r1;
 
             while (l1 < ltop)
             {
-                //printf("j=%d\ns_l1 = %s\nl1=%ld\n",j,l1,*l1);
-                //printf("matrix_row[%d][%d] = %d\n",i,j,matrix_row[i][j] );
-                (*l3) = (*l3) + matrix_row[j] * (*l1);
-                //printf("l3 = %ld\ns_l3=%s\n\n",*l3,l3);
+                tmp = matrix_row[j];
+                (*l3) = (*l3) +  tmp * (*l1);
                 l1++;
                 l3++;
             }
-            //if(j > 0) break;
-            //printf("l3 = %ld\ncoding[i]=\n\n",*l3,i,coding[i]);
+            //printf("l3 = %f\ncoding[i]=\n\n",*l3,i,coding[i]);
         }
         //printf("coding[%d] = %s\n\n\n",i,coding[i]);
-        //break;
     }
 
 }
 
-void generate_decode_matrix(int *matrix)
+int rinv(double a[],int n)
 {
-//    for(i=2;i<10;i++){
-//        printf("{");
-//        for(j=0;j<10;j++){
-//            if(i==j)
-//            {
-//                van_decode_matrix[i][j] = 1;
-//            }else{
-//                van_decode_matrix[i][j] = 0;
-//            }
-//            printf("%d,",van_decode_matrix[i][j]);
-//        }
-//        printf("},\n");
-//    }
+    int *is,*js,i,j,k,l,u,v;
+    double d,p;
+    is=malloc(n*sizeof(int));
+    js=malloc(n*sizeof(int));
+
+    for (k=0; k<=n-1; k++)
+    {
+        d=0.0;
+        for (i=k; i<=n-1; i++)
+        {
+            for (j=k; j<=n-1; j++)
+            {
+                l=i*n+j;
+                p=fabs(a[l]);
+                if (p>d)
+                {
+                    d=p;
+                    is[k]=i;
+                    js[k]=j;
+                }
+            }
+        }
+
+        if (d+1.0==1.0)
+        {
+            free(is);
+            free(js);
+            printf("err**not inv\n");
+            return(0);
+        }
+
+        if (is[k]!=k)
+        {
+            for (j=0; j<=n-1; j++)
+            {
+                u=k*n+j;
+                v=is[k]*n+j;
+                p=a[u];
+                a[u]=a[v];
+                a[v]=p;
+            }
+        }
+
+        if (js[k]!=k)
+        {
+            for (i=0; i<=n-1; i++)
+            {
+                u=i*n+k;
+                v=i*n+js[k];
+                p=a[u];
+                a[u]=a[v];
+                a[v]=p;
+            }
+        }
+
+        l=k*n+k;
+        a[l]=1.0/a[l];
+        for (j=0; j<=n-1; j++)
+        {
+            if (j!=k)
+            {
+                u=k*n+j;
+                a[u]=a[u]*a[l];
+            }
+        }
+
+        for (i=0; i<=n-1; i++)
+        {
+            if (i!=k)
+            {
+                for (j=0; j<=n-1; j++)
+                {
+                    if (j!=k)
+                    {
+                        u=i*n+j;
+                        a[u]=a[u]-a[i*n+k]*a[k*n+j];
+                    }
+                }
+            }
+        }
+
+        for (i=0; i<=n-1; i++)
+        {
+            if (i!=k)
+            {
+                u=i*n+k;
+                a[u]=-a[u]*a[l];
+            }
+        }
+    }
+
+    for (k=n-1; k>=0; k--)
+    {
+        if (js[k]!=k)
+        {
+            for (j=0; j<=n-1; j++)
+            {
+                u=k*n+j;
+                v=js[k]*n+j;
+                p=a[u];
+                a[u]=a[v];
+                a[v]=p;
+            }
+        }
+
+        if (is[k]!=k)
+        {
+            for (i=0; i<=n-1; i++)
+            {
+                u=i*n+k;
+                v=i*n+is[k];
+                p=a[u];
+                a[u]=a[v];
+                a[v]=p;
+            }
+        }
+    }
+
+    free(is);
+    free(js);
+
+    return(1);
+}
+
+void trmul(double *a,double *b,int m,int n,int k,double *c)
+{
+    int i,j,l,u;
+    for (i=0; i<=m-1; i++)
+        for (j=0; j<K-1; j++)
+        {
+            u=i*k+j;
+            c[u]=0.0;
+            for (l=0; l<=n-1; l++)
+                c[u]=c[u]+a[i*n+l]*b[l*k+j];
+        }
+    return;
+}
+
+void rinv_test()
+{
+    int i,j;
+//    static double a[4][4]= { {0.2368,0.2471,0.2568,1.2671},
+//        {1.1161,0.1254,0.1397,0.1490},
+//        {0.1582,1.1675,0.1768,0.1871},
+//        {0.1968,0.2071,1.2168,0.2271}
+//    };
+    double a[10][10] =
+    {
+        {0,0,1,0,0,0,0,0,0,0},
+        {0,0,0,1,0,0,0,0,0,0},
+        {0,0,0,0,1,0,0,0,0,0},
+        {0,0,0,0,0,1,0,0,0,0},
+        {0,0,0,0,0,0,1,0,0,0},
+        {0,0,0,0,0,0,0,1,0,0},
+        {0,0,0,0,0,0,0,0,1,0},
+        {0,0,0,0,0,0,0,0,0,1},
+        {1,1,1,1,1,1,1,1,1,1},
+        {1,2,3,4,5,6,7,8,9,10},
+//        {1,4,9,16,25,36,49,64,81,100}
+    };
+//    double a[3][3] =
+//    {
+//        {1,2,3},
+//        {0,1,4},
+//        {0,0,1}
+//    };
+    double a_inverse[3][3] =
+    {
+        {1,  -2,   5},
+        {0,  1,   -4},
+        {0,  0,    1}
+    };
+    static double b[K][K],c[K][K];
+
+    for (i=0; i<K; i++)
+        for (j=0; j<K; j++)
+            b[i][j]=a[i][j];
+
+    //invertion
+    i=rinv(a,K);
+
+    if (i!=0)
+    {
+        printf("MAT A IS:\n");
+        for (i=0; i<K; i++)
+        {
+            for (j=0; j<K; j++)
+                printf("%3.0f ",b[i][j]);
+            printf("\n");
+        }
+        printf("\n");
+
+        printf("MAT A- IS:\n");
+        for (i=0; i<K; i++)
+        {
+            printf("{");
+            for (j=0; j<K; j++){
+                printf("%4.1f ",a[i][j]);
+                if(j<9) printf(",");
+            }
+            printf("},\n");
+        }
+        printf("\n");
+
+        printf("MAT AA- IS:\n");
+        trmul(b,a,K,K,K,c);
+        for (i=0; i<K; i++)
+        {
+            for (j=0; j<K; j++)
+                printf("%3.0f ",c[i][j]);
+            printf("\n");
+        }
+    }
 }
 
 void int_matrix_multiply()
@@ -119,6 +313,28 @@ void int_matrix_multiply2(int a[][5],int b[][3],int m,int n,int k,int c[][3])
     }
 }
 
+void generate_decode_matrix()
+{
+    int i,j;
+    int matrix[10][10];
+
+    for(i=0;i<10;i++){
+        printf("{");
+        for(j=0;j<10;j++){
+            if(i==j)
+            {
+                matrix[i][j] = 1;
+            }else{
+                matrix[i][j] = 0;
+            }
+            printf("%d",matrix[i][j]);
+            if(j<9) printf(",");
+        }
+        printf("},\n");
+    }
+}
+
+/************************ error demo *********************************/
 int *MatrixInver(int   A[],int   m,int   n)             //矩阵转置
 {
     int   i,j;
@@ -205,170 +421,60 @@ int *MatrixOpp(int   A[],int   m,int   n)               //矩阵求逆
     return   C;
 }
 
-int rinv(double a[],int n)
+inline void swap(double a,double b)
 {
-    int *is,*js,i,j,k,l,u,v;
-    double d,p;
-    is=malloc(n*sizeof(int));
-    js=malloc(n*sizeof(int));
-    for (k=0; k<=n-1; k++)
+    double c=a;
+    a=b;
+    b=c;
+}
+
+int DinV(double A[N][N],int n)
+{
+    int i,j,k;
+    double d;
+    int JS[N],IS[N];
+    for (k=0; k<n; k++)
     {
-        d=0.0;
-        for (i=k; i<=n-1; i++)
-            for (j=k; j<=n-1; j++)
+        d=0;
+        for (i=k; i<n; i++)
+            for (j=k; j<n; j++)
             {
-                l=i*n+j;
-                p=fabs(a[l]);
-                if (p>d)
+                if (fabs(A[i][j])>d)
                 {
-                    d=p;
-                    is[k]=i;
-                    js[k]=j;
+                    d=fabs(A[i][j]);
+                    IS[k]=i;
+                    JS[k]=j;
                 }
             }
-        if (d+1.0==1.0)
-        {
-            free(is);
-            free(js);
-            printf("err**not inv\n");
-            return(0);
-        }
-        if (is[k]!=k)
-            for (j=0; j<=n-1; j++)
-            {
-                u=k*n+j;
-                v=is[k]*n+j;
-                p=a[u];
-                a[u]=a[v];
-                a[v]=p;
-            }
-        if (js[k]!=k)
-            for (i=0; i<=n-1; i++)
-            {
-                u=i*n+k;
-                v=i*n+js[k];
-                p=a[u];
-                a[u]=a[v];
-                a[v]=p;
-            }
-        l=k*n+k;
-        a[l]=1.0/a[l];
-        for (j=0; j<=n-1; j++)
-            if (j!=k)
-            {
-                u=k*n+j;
-                a[u]=a[u]*a[l];
-            }
-        for (i=0; i<=n-1; i++)
+        if (d+1.0==1.0) return 0;
+        if (IS[k]!=k)
+            for (j=0; j<n; j++)
+                swap(A[k][j],A[IS[k]][j]);
+        if (JS[k]!=k)
+            for (i=0; i<n; i++)
+                swap(A[i][k],A[i][JS[k]]);
+        A[k][k]=1/A[k][k];
+        for (j=0; j<n; j++)
+            if (j!=k) A[k][j]=A[k][j]*A[k][k];
+        for (i=0; i<n; i++)
             if (i!=k)
-                for (j=0; j<=n-1; j++)
-                    if (j!=k)
-                    {
-                        u=i*n+j;
-                        a[u]=a[u]-a[i*n+k]*a[k*n+j];
-                    }
-        for (i=0; i<=n-1; i++)
-            if (i!=k)
-            {
-                u=i*n+k;
-                a[u]=-a[u]*a[l];
-            }
+                for (j=0; j<n; j++)
+                    if (j!=k) A[i][j]=A[i][j]-A[i][k]*A[k][j];
+        for (i=0; i<n; i++)
+            if (i!=k) A[i][k]=-A[i][k]*A[k][k];
     }
     for (k=n-1; k>=0; k--)
     {
-        if (js[k]!=k)
-            for (j=0; j<=n-1; j++)
-            {
-                u=k*n+j;
-                v=js[k]*n+j;
-                p=a[u];
-                a[u]=a[v];
-                a[v]=p;
-            }
-        if (is[k]!=k)
-            for (i=0; i<=n-1; i++)
-            {
-                u=i*n+k;
-                v=i*n+is[k];
-                p=a[u];
-                a[u]=a[v];
-                a[v]=p;
-            }
+        for (j=0; j<n; j++)
+            if (JS[k]!=k) swap(A[k][j],A[JS[k]][j]);
+        for (i=0; i<n; i++)
+            if (IS[k]!=k) swap(A[i][k],A[i][IS[k]]);
     }
-    free(is);
-    free(js);
-    return(1);
-}
-
-void trmul(double *a,double *b,int m,int n,int k,double *c)
-{
-    int i,j,l,u;
-    for (i=0; i<=m-1; i++)
-        for (j=0; j<K-1; j++)
-        {
-            u=i*k+j;
-            c[u]=0.0;
-            for (l=0; l<=n-1; l++)
-                c[u]=c[u]+a[i*n+l]*b[l*k+j];
-        }
-    return;
-}
-
-void rinv_test()
-{
-    int i,j;
-//    static double a[4][4]= { {0.2368,0.2471,0.2568,1.2671},
-//        {1.1161,0.1254,0.1397,0.1490},
-//        {0.1582,1.1675,0.1768,0.1871},
-//        {0.1968,0.2071,1.2168,0.2271}
-//    };
-    double a[10][10] =
+    for (i=0; i<n; i++)
     {
-        {0,0,0,1,0,0,0,0,0,0},
-        {0,0,0,0,1,0,0,0,0,0},
-        {0,0,0,0,0,1,0,0,0,0},
-        {0,0,0,0,0,0,1,0,0,0},
-        {0,0,0,0,0,0,0,1,0,0},
-        {0,0,0,0,0,0,0,0,1,0},
-        {0,0,0,0,0,0,0,0,0,1},
-        {1,1,1,1,1,1,1,1,1,1},
-        {1,2,3,4,5,6,7,8,9,10},
-        {1,4,9,16,25,36,49,64,81,100}
-    };
-    static double b[K][K],c[K][K];
-
-    for (i=0; i<K; i++)
-        for (j=0; j<K; j++)
-            b[i][j]=a[i][j];
-
-    i=rinv(a,K);
-
-    if (i!=0)
-    {
-        printf("MAT A IS:\n");
-        for (i=0; i<K; i++)
-        {
-            for (j=0; j<K; j++)
-                printf("%3.0f ",b[i][j]);
-            printf("\n");
-        }
-        printf("\n");
-        printf("MAT A- IS:\n");
-        for (i=0; i<K; i++)
-        {
-            for (j=0; j<K; j++)
-                printf("%3.0f ",a[i][j]);
-            printf("\n");
-        }
-        printf("\n");
-        printf("MAT AA- IS:\n");
-        trmul(b,a,K,K,K,c);
-        for (i=0; i<K; i++)
-        {
-            for (j=0; j<K; j++)
-                printf("%3.0f ",c[i][j]);
-            printf("\n");
-        }
+        for (j=0; j<n; j++)
+            printf("  %1.4f",A[i][j]);
+        puts("");
     }
 }
 
