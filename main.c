@@ -55,6 +55,7 @@ int main()
     fname = (char*)malloc(sizeof(char)*200);
     getcwd(curdir, 1000);
 
+    //求逆矩阵
     //rinv_test();
 
     //encode

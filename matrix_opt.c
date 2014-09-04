@@ -371,7 +371,7 @@ void generate_decode_matrix()
     }
 }
 
-/************************ error demo *********************************/
+/************************ failed demo *********************************/
 int *MatrixInver(int   A[],int   m,int   n)             //矩阵转置
 {
     int   i,j;
