@@ -2,43 +2,75 @@
 #include <stdlib.h>
 
 #include "matrix_opt.h"
+void galois_region_xor( char *r1, int l2,char *r3,int nbytes)
+{
+    long *l1;
+    //double *l2;
+    long *l3;
+    long *ltop;
+    char *ctop;
 
-void van_matrix_encode(int col,int row,double *matrix,char **data,char **coding,int blocksize)
+    ctop = r1 + nbytes;
+    ltop = (long *) ctop;
+    l1 = (long *) r1;
+    //l2 = (double *) r2;
+    l3 = (long *) r3;
+
+    while (l1 < ltop)
+    {
+        //*l3 = (*l3) + ((*l1)  * (*l2));
+        *l3 = (*l3) + (*l1)  * l2;
+        l1++;
+        l3++;
+    }
+}
+
+void erasure_matrix_dotprod(int col, int row, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int blocksize)
+{
+    char *dptr, *sptr,*t;
+    int i,j;
+    dptr = coding_ptrs[dest_id-col];
+
+    for( j=0; j < col; j++)
+    {
+        sptr = data_ptrs[j];
+//            ctop = r1 + blocksize;
+//            ltop = (double *) ctop;
+//            l1 = (double *) r1;
+//            l3 = (long *) r3;
+//            while (l1 < ltop)
+//            {
+//                tmp = matrix_row[j];
+//                (*l3) = (*l3) +  tmp * (*l1);
+//                t = coding[i];
+//                l1++;
+//                l3++;
+//            } =
+        galois_region_xor(sptr,matrix_row[j],dptr,blocksize);
+        t = *dptr;
+        //printf("l3 = %f\ncoding[i]=\n\n",*l3,i,coding[i]);
+    }
+    //printf("coding[%d] = %s\n\n\n",i,coding[i]);
+}
+
+void van_matrix_encode(int col,int row,int *matrix,char **data_ptrs,char **coding_ptrs,int blocksize)
 {
     int i, j;
     char *t;
-    char *r1;
-    double *l1;
-    char *ctop;
-    double *ltop;
-    double  *ld;
-    double  *cd;
-    double *l3;
-    double *matrix_row,tmp;
 
     for(i=0; i < row; i++)
     {
-        matrix_row = matrix+(i*col);
-        l3 = (  double  *)coding[i];
-        for( j=0; j < col; j++)
-        {
-            r1 = data[j];
-            ctop = r1 + blocksize;
-            ltop = (double *) ctop;
-            l1 = (double *) r1;
-
-            while (l1 < ltop)
-            {
-                tmp = matrix_row[j];
-                (*l3) = (*l3) +  tmp * (*l1);
-                l1++;
-                l3++;
-            }
-            //printf("l3 = %f\ncoding[i]=\n\n",*l3,i,coding[i]);
-        }
-        //printf("coding[%d] = %s\n\n\n",i,coding[i]);
+        erasure_matrix_dotprod(col,row, matrix+(i*col), NULL, col+i, data_ptrs, coding_ptrs, blocksize);
+        t = coding_ptrs[i];
     }
 
+}
+
+void save_coding(char *fname,char *content,int blocksize){
+    FILE *fp, *fp2;
+    fp2 = fopen(fname, "wb");
+    fwrite(content, sizeof(char), blocksize, fp2);
+    fclose(fp2);
 }
 
 int rinv(double a[],int n)
@@ -239,7 +271,8 @@ void rinv_test()
         for (i=0; i<K; i++)
         {
             printf("{");
-            for (j=0; j<K; j++){
+            for (j=0; j<K; j++)
+            {
                 printf("%4.1f ",a[i][j]);
                 if(j<9) printf(",");
             }
@@ -318,13 +351,17 @@ void generate_decode_matrix()
     int i,j;
     int matrix[10][10];
 
-    for(i=0;i<10;i++){
+    for(i=0; i<10; i++)
+    {
         printf("{");
-        for(j=0;j<10;j++){
+        for(j=0; j<10; j++)
+        {
             if(i==j)
             {
                 matrix[i][j] = 1;
-            }else{
+            }
+            else
+            {
                 matrix[i][j] = 0;
             }
             printf("%d",matrix[i][j]);

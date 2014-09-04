@@ -5,30 +5,31 @@
 int main()
 {
     FILE *fp, *fp2;
-    int i,j,n,m;
-    char *fname = "./decode_data";
-    char  **data,**d_data;
+    int i,j,n=0,m;
+    char *fname;
+    char  **data,**d_data,*curdir;
     char  **coding,**coding2;
-    int blocksize = 80;
-    double van_encode_matrix[3][10]=
+    int blocksize = 320;
+    int van_encode_matrix[3][10]=
     {
         { 1,1,1,1,1,1,1,1,1,1},
         { 1,2,3,4,5,6,7,8,9,10},
         { 1,4,9,16,25,36,49,64,81,100}
     };
-    double van_decode_matrix[10][10] =
+    int van_decode_matrix[10][10] =
     {
-        { 1.0 , 2.0 , 3.0 , 4.0 , 5.0 , 6.0 , 7.0 , 8.0 , 2.0 ,-1.0 },
-        {-2.0 ,-3.0 ,-4.0 ,-5.0 ,-6.0 ,-7.0 ,-8.0 ,-9.0 ,-1.0 , 1.0 },
-        { 1.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 },
-        { 0.0 , 1.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 },
-        { 0.0 , 0.0 , 1.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 },
-        { 0.0 , 0.0 , 0.0 , 1.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 },
-        { 0.0 , 0.0 , 0.0 , 0.0 , 1.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 },
-        { 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 1.0 , 0.0 , 0.0 , 0.0 , 0.0 },
-        { 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 1.0 , 0.0 , 0.0 , 0.0 },
-        { 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 0.0 , 1.0 , 0.0 , 0.0 },
+        { 1 , 2 , 3 , 4 , 5 , 6 , 7, 8 , 2 ,-1 },
+        {-2 ,-3,-4 ,-5 ,-6,-7 ,-8 ,-9 ,-1 , 1 },
+        { 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 },
+        { 0 , 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 },
+        { 0 , 0 , 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 },
+        { 0 , 0 , 0 , 1 , 0 , 0 , 0 , 0 , 0 , 0 },
+        { 0 , 0 , 0 , 0 , 1 , 0 , 0 , 0 , 0 , 0 },
+        { 0 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , 0 , 0 },
+        { 0 , 0 , 0 , 0 , 0 , 0 , 1 , 0 , 0 , 0 },
+        { 0 , 0 , 0 , 0 , 0 , 0 , 0 , 1 , 0 , 0 },
     };
+
     /* Allocate data and coding */
     data = ( char  **)malloc(sizeof( char *)*K);
     d_data = ( char  **)malloc(sizeof( char *)*K);
@@ -45,23 +46,34 @@ int main()
         {
             data[i] = "abcdefghij";
         }
-//        if(i==1){
-//            data[i] = "klmnopqrst";
-//        }
+        if(i==1){
+            data[i] = "klmnopqrst";
+        }
        // printf("%d = %s\nlen = %d\n\n",i,data[i],strlen(data[i]));
     }
+    curdir = (char*)malloc(sizeof(char)*1000);
+    fname = (char*)malloc(sizeof(char)*200);
+    getcwd(curdir, 1000);
 
     //rinv_test();
 
     //encode
     van_matrix_encode(10,3,van_encode_matrix,data,coding,blocksize);
-    printf("\ncoding[%d] = %s\n",0,coding[0],strlen(coding[0]));
-    printf("coding[%d] = %s\n",1,coding[1],strlen(coding[1]));
-    printf("coding[%d] = %s\n\n\n",2,coding[2],strlen(coding[2]));
+    for(i=0;i<3;i++){
+        printf("\ncoding[%d] =%d=%s",i,strlen(coding[i]),coding[i]);
+        sprintf(fname, "%s/m%d", curdir, i);
+        save_coding(fname,coding[i],blocksize);
+    }
+    printf("\n\n");
 
     //decode
-    data[0] = coding[0];
-    data[1] = coding[1];
+    data[0]=( char  *)calloc(blocksize,sizeof( char ));
+    data[1]=( char  *)calloc(blocksize,sizeof( char ));
+    data[8] = coding[0];
+    data[9] = coding[1];
+//    for(i=0;i<10;i++){
+//        printf("%d=%s\n",i,data[i]);
+//    }
     van_matrix_encode(10,10,van_decode_matrix,data,d_data,blocksize);
     for (i=0; i<K; i++)
     {

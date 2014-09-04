@@ -5,7 +5,7 @@
 #define M 3
 #define N 10
 
-void van_matrix_encode(int k,int m,double *matrix,char **data,char **coding,int blocksize);
+void van_matrix_encode(int k,int m,int *matrix,char **data,char **coding,int blocksize);
 void int_matrix_multiply();
 void int_matrix_multiply2(int a[][5],int b[][3],int m,int n,int k,int c[][3]);
 int *MatrixInver(int   A[],int   m,int   n);
