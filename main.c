@@ -7,7 +7,7 @@ int main()
     FILE *fp, *fp2;
     int i,j,n=0,m;
     char *fname;
-    char  **data,**d_data,*curdir;
+    char  **data,**decoding,*curdir;
     char  **coding,**coding2;
     int blocksize = 320;
     int van_encode_matrix[3][10]=
@@ -32,7 +32,7 @@ int main()
 
     /* Allocate data and coding */
     data = ( char  **)malloc(sizeof( char *)*K);
-    d_data = ( char  **)malloc(sizeof( char *)*K);
+    decoding = ( char  **)malloc(sizeof( char *)*K);
     coding = ( char  **)malloc(sizeof( char *)*M);
     for (i = 0; i < M; i++)
     {
@@ -41,7 +41,7 @@ int main()
     for(i=0; i<K; i++)
     {
         data[i] = ( char  *)calloc(blocksize,sizeof( char ));
-        d_data[i] = ( char  *)calloc(blocksize,sizeof( char ));
+        decoding[i] = ( char  *)calloc(blocksize,sizeof( char ));
         if(i==0)
         {
             data[i] = "abcdefghij";
@@ -75,10 +75,10 @@ int main()
 //    for(i=0;i<10;i++){
 //        printf("%d=%s\n",i,data[i]);
 //    }
-    van_matrix_encode(10,10,van_decode_matrix,data,d_data,blocksize);
+    van_matrix_encode(10,10,van_decode_matrix,data,decoding,blocksize);
     for (i=0; i<K; i++)
     {
-        printf("decoding[%d] = %s\n",i,d_data[i]);
+        printf("decoding[%d] = %s\n",i,decoding[i]);
     }
     printf("\n");
 
