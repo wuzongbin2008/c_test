@@ -151,7 +151,8 @@ void van_matrix_encode(int col,int row,int *matrix,char **data_ptrs,char **codin
 
 }
 
-void save_coding(char *fname,char *content,int blocksize){
+void save_coding(char *fname,char *content,int blocksize)
+{
     FILE *fp, *fp2;
     fp2 = fopen(fname, "wb");
     fwrite(content, sizeof(char), blocksize, fp2);
@@ -301,14 +302,8 @@ void trmul(double *a,double *b,int m,int n,int k,double *c)
 void rinv_test()
 {
     int i,j;
-//    static double a[4][4]= { {0.2368,0.2471,0.2568,1.2671},
-//        {1.1161,0.1254,0.1397,0.1490},
-//        {0.1582,1.1675,0.1768,0.1871},
-//        {0.1968,0.2071,1.2168,0.2271}
-//    };
     double a[10][10] =
     {
-        //{0,0,1,0,0,0,0,0,0,0},
         {0,0,0,1,0,0,0,0,0,0},
         {0,0,0,0,1,0,0,0,0,0},
         {0,0,0,0,0,1,0,0,0,0},
@@ -320,12 +315,7 @@ void rinv_test()
         {1,2,3,4,5,6,7,8,9,10},
         {1,4,9,16,25,36,49,64,81,100}
     };
-//    double a[3][3] =
-//    {
-//        {1,2,3},
-//        {0,1,4},
-//        {0,0,1}
-//    };
+
     double a_inverse[3][3] =
     {
         {1,  -2,   5},
@@ -335,8 +325,12 @@ void rinv_test()
     static double b[K][K],c[K][K];
 
     for (i=0; i<K; i++)
+    {
         for (j=0; j<K; j++)
+        {
             b[i][j]=a[i][j];
+        }
+    }
 
     //invertion
     i=rinv(a,K);

@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="getopt_test.h" />
+		<Unit filename="libconfig_test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="libconfig_test.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
