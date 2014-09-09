@@ -19,11 +19,11 @@ void read_config_file()
 
     //printf("len = %d\n",config_setting_length(settings));
     elem = config_setting_get_elem(settings, 0);
-    printf("name=%s\n",elem->name);
+    printf("name = %s\n",elem->name);
     elem = config_setting_get_elem(elem,2);
-    printf("name=%s\n",elem->name);
+    printf("name = %s\n",elem->name);
     elem = config_setting_get_elem(elem,1);
-    printf("name=%s\n\n",elem->name);
+    printf("name = %s\n\n",elem->name);
 
     config_lookup_int(&cfg,"application.window.pos.y",&x);
     printf("x=%d\n",x);
