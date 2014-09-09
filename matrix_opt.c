@@ -3,7 +3,140 @@
 
 #include "matrix_opt.h"
 
-void ec_test()
+void ec_double_test()
+{
+    FILE *fp, *fp2;
+    int i,j,n=0,m;
+    char *fname;
+    char  **data,**decoding,*curdir;
+    char  **coding,**coding2;
+    int blocksize = 320;
+    double van_encode_matrix[3][10]=
+    {
+        { 1,1,1,1,1,1,1,1,1,1},
+        { 1,2,3,4,5,6,7,8,9,10},
+        { 1,4,9,16,25,36,49,64,81,100}
+    };
+    double van_decode_matrix[10][10] =
+    {
+        {-1.0	 ,-3.0	 ,-6.0	 ,-10.0	 ,-15.0	 ,-21.0	 ,-28.0	 , 3.0	 ,-2.5	 , 0.5	 },
+        { 3.0	 , 8.0	 ,15.0	 ,24.0	 ,35.0	 ,48.0	 ,63.0	 ,-3.0	 , 4.0	 ,-1.0	 },
+        {-3.0	 ,-6.0	 ,-10.0	 ,-15.0	 ,-21.0	 ,-28.0	 ,-36.0	 , 1.0	 ,-1.5	 , 0.5	 },
+        { 1.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 ,-0.0	 , 0.0	 , 0.0	 , 0.0	 },
+        { 0.0	 , 1.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 ,-0.0	 , 0.0	 ,-0.0	 },
+        { 0.0	 , 0.0	 , 1.0	 , 0.0	 , 0.0	 , 0.0	 ,-0.0	 , 0.0	 , 0.0	 , 0.0	 },
+        { 0.0	 , 0.0	 , 0.0	 , 1.0	 , 0.0	 , 0.0	 ,-0.0	 , 0.0	 , 0.0	 , 0.0	 },
+        { 0.0	 , 0.0	 , 0.0	 , 0.0	 , 1.0	 , 0.0	 ,-0.0	 , 0.0	 , 0.0	 , 0.0	 },
+        { 0.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 , 1.0	 ,-0.0	 , 0.0	 , 0.0	 , 0.0	 },
+        { 0.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 , 1.0	 , 0.0	 , 0.0	 , 0.0	 },
+
+    };
+
+    /* Allocate data and coding */
+    data = ( char  **)malloc(sizeof( char *)*K);
+    decoding = ( char  **)malloc(sizeof( char *)*K);
+    coding = ( char  **)malloc(sizeof( char *)*M);
+    for (i = 0; i < M; i++)
+    {
+        coding[i] = ( char  *)calloc(blocksize,sizeof( char ));
+    }
+    for(i=0; i<K; i++)
+    {
+        data[i] = ( char  *)calloc(blocksize,sizeof( char ));
+        decoding[i] = ( char  *)calloc(blocksize,sizeof( char ));
+        if(i==0)
+        {
+            data[i] = "abcdefghij";
+        }
+        if(i==1)
+        {
+            data[i] = "klmnopqrst";
+        }
+        // printf("%d = %s\nlen = %d\n\n",i,data[i],strlen(data[i]));
+    }
+    curdir = (char*)malloc(sizeof(char)*1000);
+    fname = (char*)malloc(sizeof(char)*200);
+    getcwd(curdir, 1000);
+
+    //encode
+    van_double_matrix_encode(10,3,van_encode_matrix,data,coding,blocksize);
+    for(i=0; i<3; i++)
+    {
+        printf("\ncoding[%d] =%d=%s",i,strlen(coding[i]),coding[i]);
+        sprintf(fname, "%s/m%d", curdir, i);
+        save_coding(fname,coding[i],blocksize);
+    }
+    printf("\n\n");
+
+    //decode
+    data[0]=( char  *)calloc(blocksize,sizeof( char ));
+    data[1]=( char  *)calloc(blocksize,sizeof( char ));
+    data[8] = coding[0];
+    data[9] = coding[1];
+//    for(i=0;i<10;i++){
+//        printf("%d=%s\n",i,data[i]);
+//    }
+    van_double_matrix_encode(10,10,van_decode_matrix,data,decoding,blocksize);
+    for (i=0; i<K; i++)
+    {
+        printf("decoding[%d] = %s\n",i,decoding[i]);
+    }
+    printf("\n");
+}
+
+void van_double_matrix_encode(int col,int row,double *matrix,char **data_ptrs,char **coding_ptrs,int blocksize)
+{
+    int i, j;
+    char *t;
+
+    for(i=0; i < row; i++)
+    {
+        erasure_double_matrix_dotprod(col,row, matrix+(i*col), NULL, col+i, data_ptrs, coding_ptrs, blocksize);
+        t = coding_ptrs[i];
+    }
+
+}
+
+void erasure_double_matrix_dotprod(int col, int row, double *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int blocksize)
+{
+    char *dptr, *sptr,*t;
+    int i,j;
+    dptr = coding_ptrs[dest_id-col];
+
+    for( j=0; j < col; j++)
+    {
+        sptr = data_ptrs[j];
+        double_matrix_multiply_string(sptr,matrix_row[j],dptr,blocksize);
+        t = *dptr;
+        //printf("l3 = %f\ncoding[i]=\n\n",*l3,i,coding[i]);
+    }
+    //printf("coding[%d] = %s\n\n\n",i,coding[i]);
+}
+
+void double_matrix_multiply_string( char *r1, double l2,char *r3,int nbytes)
+{
+    long *l1;
+    //double *l2;
+    long *l3;
+    long *ltop;
+    char *ctop;
+
+    ctop = r1 + nbytes;
+    ltop = (long *) ctop;
+    l1 = (long *) r1;
+    //l2 = (double *) r2;
+    l3 = (long *) r3;
+
+    while (l1 < ltop)
+    {
+        //*l3 = (*l3) + ((*l1)  * (*l2));
+        *l3 = (*l3) + (*l1)  * l2;
+        l1++;
+        l3++;
+    }
+}
+
+void ec_int_test()
 {
     FILE *fp, *fp2;
     int i,j,n=0,m;
@@ -57,12 +190,8 @@ void ec_test()
     fname = (char*)malloc(sizeof(char)*200);
     getcwd(curdir, 1000);
 
-    //求逆矩阵
-    rinv_test();
-    //exit(EXIT_SUCCESS);
-
     //encode
-    van_matrix_encode(10,3,van_encode_matrix,data,coding,blocksize);
+    van_int_matrix_encode(10,3,van_encode_matrix,data,coding,blocksize);
     for(i=0; i<3; i++)
     {
         printf("\ncoding[%d] =%d=%s",i,strlen(coding[i]),coding[i]);
@@ -79,7 +208,7 @@ void ec_test()
 //    for(i=0;i<10;i++){
 //        printf("%d=%s\n",i,data[i]);
 //    }
-    van_matrix_encode(10,10,van_decode_matrix,data,decoding,blocksize);
+    van_int_matrix_encode(10,10,van_decode_matrix,data,decoding,blocksize);
     for (i=0; i<K; i++)
     {
         printf("decoding[%d] = %s\n",i,decoding[i]);
@@ -87,7 +216,7 @@ void ec_test()
     printf("\n");
 }
 
-void galois_region_xor( char *r1, int l2,char *r3,int nbytes)
+void int_matrix_multiply_string( char *r1, int l2,char *r3,int nbytes)
 {
     long *l1;
     //double *l2;
@@ -110,7 +239,7 @@ void galois_region_xor( char *r1, int l2,char *r3,int nbytes)
     }
 }
 
-void erasure_matrix_dotprod(int col, int row, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int blocksize)
+void erasure_int_matrix_dotprod(int col, int row, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int blocksize)
 {
     char *dptr, *sptr,*t;
     int i,j;
@@ -119,33 +248,21 @@ void erasure_matrix_dotprod(int col, int row, int *matrix_row,int *src_ids, int 
     for( j=0; j < col; j++)
     {
         sptr = data_ptrs[j];
-//            ctop = r1 + blocksize;
-//            ltop = (double *) ctop;
-//            l1 = (double *) r1;
-//            l3 = (long *) r3;
-//            while (l1 < ltop)
-//            {
-//                tmp = matrix_row[j];
-//                (*l3) = (*l3) +  tmp * (*l1);
-//                t = coding[i];
-//                l1++;
-//                l3++;
-//            } =
-        galois_region_xor(sptr,matrix_row[j],dptr,blocksize);
+        int_matrix_multiply_string(sptr,matrix_row[j],dptr,blocksize);
         t = *dptr;
         //printf("l3 = %f\ncoding[i]=\n\n",*l3,i,coding[i]);
     }
     //printf("coding[%d] = %s\n\n\n",i,coding[i]);
 }
 
-void van_matrix_encode(int col,int row,int *matrix,char **data_ptrs,char **coding_ptrs,int blocksize)
+void van_int_matrix_encode(int col,int row,int *matrix,char **data_ptrs,char **coding_ptrs,int blocksize)
 {
     int i, j;
     char *t;
 
     for(i=0; i < row; i++)
     {
-        erasure_matrix_dotprod(col,row, matrix+(i*col), NULL, col+i, data_ptrs, coding_ptrs, blocksize);
+        erasure_int_matrix_dotprod(col,row, matrix+(i*col), NULL, col+i, data_ptrs, coding_ptrs, blocksize);
         t = coding_ptrs[i];
     }
 
@@ -400,198 +517,6 @@ void int_matrix_multiply()
         }
     }
 
-}
-
-void int_matrix_multiply2(int a[][5],int b[][3],int m,int n,int k,int c[][3])
-{
-    int i,j,l,u;
-    int at,bt,ct;
-    //m=4 k=3 n=5
-    for (i=0; i<m; i++)
-    {
-        for (j=0; j<k; j++)
-        {
-            ct = c[i][j] = 0.0;
-            for (l=0; l<n; l++)
-            {
-                at = a[i][l];
-                bt = b[l][j];
-
-                ct=ct+at*bt;
-            }
-            printf("%e\t",ct);
-        }
-        printf("\n");
-    }
-}
-
-void generate_decode_matrix()
-{
-    int i,j;
-    int matrix[10][10];
-
-    for(i=0; i<10; i++)
-    {
-        printf("{");
-        for(j=0; j<10; j++)
-        {
-            if(i==j)
-            {
-                matrix[i][j] = 1;
-            }
-            else
-            {
-                matrix[i][j] = 0;
-            }
-            printf("%d",matrix[i][j]);
-            if(j<9) printf(",");
-        }
-        printf("},\n");
-    }
-}
-
-/************************ failed demo *********************************/
-int *MatrixInver(int   A[],int   m,int   n)             //矩阵转置
-{
-    int   i,j;
-    int   *B=NULL;
-    B=(int  *)malloc(m*n*sizeof(int));
-
-    for(i=0; i <n; i++)
-        for(j=0; j <m; j++)
-            B[i*m+j]=A[j*n+i];
-    return   B;
-}
-
-int Surplus(int   A[],int   m,int   n)                 //求矩阵行列式
-{
-    int   i,j,k,p,r;
-    int   X,temp=1,temp1=1,s=0,s1=0;
-    if(n==2)
-    {
-        for(i=0; i <m; i++)
-            for(j=0; j <n; j++)
-                if((i+j)%2)   temp1*=A[i*n+j];
-                else   temp*=A[i*n+j];
-        X=temp-temp1;
-    }
-    else
-    {
-        for(k=0; k <n; k++)
-        {
-            for(i=0,j=k; i <m,j <n; i++,j++)
-                temp*=A[i*n+j];
-            if(m-i)
-            {
-                for(p=m-i,r=m-1; p> 0; p--,r--)
-                    temp*=A[r*n+p-1];
-            }
-            s+=temp;
-            temp=1;
-        }
-        for(k=n-1; k>=0; k--)
-        {
-            for(i=0,j=k; i<m,j>=0; i++,j--)
-                temp1*=A[i*n+j];
-            if(m-i)
-            {
-                for(p=m-1,r=i; r <m; p--,r++)
-                    temp1*=A[r*n+p];
-            }
-            s1+=temp1;
-            temp1=1;
-        }
-        X=s-s1;
-    }
-    return   X;
-}
-
-int *MatrixOpp(int   A[],int   m,int   n)               //矩阵求逆
-{
-    int   i,j,x,y,k;
-    int *C;
-    int   *SP=NULL,*AB=NULL,*B=NULL,X;                  //*C;
-    SP=(int   *)malloc(m*n*sizeof(int));
-    AB=(int   *)malloc(m*n*sizeof(int));
-    B=(int   *)malloc(m*n*sizeof(int));
-    X=Surplus(A,m,n);
-    X=1/X;
-    for(i=0; i<m; i++)                            //求矩阵伴随矩阵
-    {
-        for(j=0; j<n; j++)
-        {
-            for(k=0; k<m*n; k++)
-                B[k]=A[k];                                 //B[]变成A[];
-            {
-                for(x=0; x<n; x++)
-                    B[i*n+x]=0;
-                for(y=0; y<m; y++)
-                    B[m*y+j]=0;
-                B[i*n+j]=1;
-                SP[i*n+j]=Surplus(B,m,n);
-                AB[i*n+j]=X*SP[i*n+j];
-            }
-        }
-    }
-    C=MatrixInver(AB,m,n);                         //MatrixInver  求倒置
-    return   C;
-}
-
-inline void swap(double a,double b)
-{
-    double c=a;
-    a=b;
-    b=c;
-}
-
-int DinV(double A[N][N],int n)
-{
-    int i,j,k;
-    double d;
-    int JS[N],IS[N];
-    for (k=0; k<n; k++)
-    {
-        d=0;
-        for (i=k; i<n; i++)
-            for (j=k; j<n; j++)
-            {
-                if (fabs(A[i][j])>d)
-                {
-                    d=fabs(A[i][j]);
-                    IS[k]=i;
-                    JS[k]=j;
-                }
-            }
-        if (d+1.0==1.0) return 0;
-        if (IS[k]!=k)
-            for (j=0; j<n; j++)
-                swap(A[k][j],A[IS[k]][j]);
-        if (JS[k]!=k)
-            for (i=0; i<n; i++)
-                swap(A[i][k],A[i][JS[k]]);
-        A[k][k]=1/A[k][k];
-        for (j=0; j<n; j++)
-            if (j!=k) A[k][j]=A[k][j]*A[k][k];
-        for (i=0; i<n; i++)
-            if (i!=k)
-                for (j=0; j<n; j++)
-                    if (j!=k) A[i][j]=A[i][j]-A[i][k]*A[k][j];
-        for (i=0; i<n; i++)
-            if (i!=k) A[i][k]=-A[i][k]*A[k][k];
-    }
-    for (k=n-1; k>=0; k--)
-    {
-        for (j=0; j<n; j++)
-            if (JS[k]!=k) swap(A[k][j],A[JS[k]][j]);
-        for (i=0; i<n; i++)
-            if (IS[k]!=k) swap(A[i][k],A[i][IS[k]]);
-    }
-    for (i=0; i<n; i++)
-    {
-        for (j=0; j<n; j++)
-            printf("  %1.4f",A[i][j]);
-        puts("");
-    }
 }
 
 void print_multiply()

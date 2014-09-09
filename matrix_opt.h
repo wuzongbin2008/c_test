@@ -5,13 +5,14 @@
 #define M 3
 #define N 10
 
-void ec_test();
-void van_matrix_encode(int k,int m,int *matrix,char **data,char **coding,int blocksize);
+void ec_double_test();
+void van_double_matrix_encode(int k,int m,double *matrix,char **data,char **coding,int blocksize);
+void double_matrix_multiply_string( char *r1, double l2,char *r3,int nbytes);
+void ec_int_test();
+void van_int_matrix_encode(int k,int m,int *matrix,char **data,char **coding,int blocksize);
+void erasure_int_matrix_dotprod(int col, int row, int *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int blocksize);
+void int_matrix_multiply_string( char *r1, int l2,char *r3,int nbytes);
 void int_matrix_multiply();
-void int_matrix_multiply2(int a[][5],int b[][3],int m,int n,int k,int c[][3]);
-int *MatrixInver(int   A[],int   m,int   n);
-int Surplus(int   A[],int   m,int   n);
-int *MatrixOpp(int   A[],int   m,int   n);
 void print_multiply();
 void tcmul(double *ar,double *br,int m,int n,int k,double *cr);
 

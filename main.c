@@ -7,7 +7,8 @@
 
 int main(int argc,char *argv[])
 {
-    read_config_file();
+    ec_double_test();
+    //ec_int_test();
     return 0;
 }
 
