@@ -38,7 +38,7 @@ void read_config_file()
 
     for (i = 0; i < config_setting_length(settings); i++)
     {
-        if (elem= config_setting_get_elem(settings, i)) {
+        if (elem = config_setting_get_elem(settings, i)) {
             //printf("%d name = %s\n", i,elem->name);
             //printf("%d type = %d\n", i,elem->type);
         }

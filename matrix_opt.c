@@ -11,17 +11,17 @@ void ec_double_test()
     char  **data,**decoding,*curdir;
     char  **coding,**coding2;
     int blocksize = 320;
-    double van_encode_matrix[3][10]=
+    int van_encode_matrix[3][10]=
     {
         { 1,1,1,1,1,1,1,1,1,1},
         { 1,2,3,4,5,6,7,8,9,10},
         { 1,4,9,16,25,36,49,64,81,100}
     };
-    double van_decode_matrix[10][10] =
+    int van_decode_matrix[10][10] =
     {
-        {-1.0	 ,-3.0	 ,-6.0	 ,-10.0	 ,-15.0	 ,-21.0	 ,-28.0	 , 3.0	 ,-2.5	 , 0.5	 },
+        {-1.0	 ,-3.0	 ,-6.0	 ,-10.0	 ,-15.0	 ,-21.0	 ,-28.0	 , 3.0	 ,0x40000000	 , 0x3f000000	 },
         { 3.0	 , 8.0	 ,15.0	 ,24.0	 ,35.0	 ,48.0	 ,63.0	 ,-3.0	 , 4.0	 ,-1.0	 },
-        {-3.0	 ,-6.0	 ,-10.0	 ,-15.0	 ,-21.0	 ,-28.0	 ,-36.0	 , 1.0	 ,-1.5	 , 0.5	 },
+        {-3.0	 ,-6.0	 ,-10.0	 ,-15.0	 ,-21.0	 ,-28.0	 ,-36.0	 , 1.0	 ,-1.5	 , 0x3f000000	 },
         { 1.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 ,-0.0	 , 0.0	 , 0.0	 , 0.0	 },
         { 0.0	 , 1.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 , 0.0	 ,-0.0	 , 0.0	 ,-0.0	 },
         { 0.0	 , 0.0	 , 1.0	 , 0.0	 , 0.0	 , 0.0	 ,-0.0	 , 0.0	 , 0.0	 , 0.0	 },
@@ -52,31 +52,36 @@ void ec_double_test()
         {
             data[i] = "klmnopqrst";
         }
-        // printf("%d = %s\nlen = %d\n\n",i,data[i],strlen(data[i]));
+        if(i==2)
+        {
+            data[i] = "uvwxyz1234";
+        }
     }
     curdir = (char*)malloc(sizeof(char)*1000);
     fname = (char*)malloc(sizeof(char)*200);
     getcwd(curdir, 1000);
 
     //encode
-    van_double_matrix_encode(10,3,van_encode_matrix,data,coding,blocksize);
+    van_int_matrix_encode(10,3,van_encode_matrix,data,coding,blocksize);
     for(i=0; i<3; i++)
     {
-        printf("\ncoding[%d] =%d=%s",i,strlen(coding[i]),coding[i]);
-        sprintf(fname, "%s/m%d", curdir, i);
-        save_coding(fname,coding[i],blocksize);
+        //printf("\ncoding[%d] =%d=%s",i,strlen(coding[i]),coding[i]);
+        //sprintf(fname, "%s/m%d", curdir, i);
+        //save_coding(fname,coding[i],blocksize);
     }
     printf("\n\n");
 
     //decode
     data[0]=( char  *)calloc(blocksize,sizeof( char ));
     data[1]=( char  *)calloc(blocksize,sizeof( char ));
-    data[8] = coding[0];
-    data[9] = coding[1];
+    data[2]=( char  *)calloc(blocksize,sizeof( char ));
+    data[7] = coding[0];
+    data[8] = coding[1];
+    data[9] = coding[2];
 //    for(i=0;i<10;i++){
 //        printf("%d=%s\n",i,data[i]);
 //    }
-    van_double_matrix_encode(10,10,van_decode_matrix,data,decoding,blocksize);
+    van_int_matrix_encode(10,10,van_decode_matrix,data,decoding,blocksize);
     for (i=0; i<K; i++)
     {
         printf("decoding[%d] = %s\n",i,decoding[i]);
@@ -99,38 +104,46 @@ void van_double_matrix_encode(int col,int row,double *matrix,char **data_ptrs,ch
 
 void erasure_double_matrix_dotprod(int col, int row, double *matrix_row,int *src_ids, int dest_id,char **data_ptrs, char **coding_ptrs, int blocksize)
 {
-    char *dptr, *sptr,*t;
-    int i,j;
+    char *dptr, *sptr;
+    int i,j,n;
+    long *m;
+    long *l3,t,t2;
+
     dptr = coding_ptrs[dest_id-col];
 
     for( j=0; j < col; j++)
     {
         sptr = data_ptrs[j];
-        double_matrix_multiply_string(sptr,matrix_row[j],dptr,blocksize);
-        t = *dptr;
-        //printf("l3 = %f\ncoding[i]=\n\n",*l3,i,coding[i]);
+        n = matrix_row[j];
+        double_matrix_multiply_string(sptr,n,dptr,blocksize);
     }
+    l3 = (long *) dptr;
+    t = *l3;
     //printf("coding[%d] = %s\n\n\n",i,coding[i]);
 }
 
-void double_matrix_multiply_string( char *r1, double l2,char *r3,int nbytes)
+void double_matrix_multiply_string( char *r1, double d2,char *r3,int nbytes)
 {
-    long *l1;
-    //double *l2;
-    long *l3;
-    long *ltop;
+    int i=0;
+    double *l1;
+    int l2;
+    double *l3,t,t2;
+    double *ltop;
     char *ctop;
 
     ctop = r1 + nbytes;
-    ltop = (long *) ctop;
-    l1 = (long *) r1;
-    //l2 = (double *) r2;
-    l3 = (long *) r3;
+    ltop = (double *) ctop;
+    l1 = (double *) r1;
+    l2 = (int) (d2);
+    l3 = (double *) r3;
 
     while (l1 < ltop)
     {
+        i++;
         //*l3 = (*l3) + ((*l1)  * (*l2));
-        *l3 = (*l3) + (*l1)  * l2;
+        *l3 = (*l3) + (*l1)  * d2;
+        t2 = *l1;
+        t = *l3;
         l1++;
         l3++;
     }
@@ -469,7 +482,7 @@ void rinv_test()
             printf("{");
             for (j=0; j<K; j++)
             {
-                printf("%4.1f\t ",a[i][j]);
+                printf("%3.0f\t ",a[i][j]);
                 if(j<9) printf(",");
             }
             printf("},\n");

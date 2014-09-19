@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="getopt_test.h" />
+		<Unit filename="jerasure_test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="jerasure_test.h" />
 		<Unit filename="libconfig_test.c">
 			<Option compilerVar="CC" />
 		</Unit>

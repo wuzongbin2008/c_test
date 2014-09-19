@@ -4,11 +4,13 @@
 #include "matrix_opt.h"
 #include "getopt_test.h"
 #include "libconfig_test.h"
+#include "jerasure_test.h"
 
 int main(int argc,char *argv[])
 {
-    ec_double_test();
-    //ec_int_test();
+    char *s;
+
+    s = malloc(sizeof(char) * 10);
+
     return 0;
 }
-
