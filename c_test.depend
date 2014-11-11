@@ -20,24 +20,31 @@
 
 1416450075 /project/c/c_test/matrix_opt.h
 
-1416535729 source:/project/c/c_test/getopt_test.c
+1415675647 source:/project/c/c_test/getopt_test.c
 	<getopt.h>
 	<stdio.h>
 	<stdlib.h>
 	<errno.h>
 
-1416542337 source:/project/c/c_test/main.c
+1415682766 source:/project/c/c_test/main.c
 	<stdio.h>
 	<stdlib.h>
 	"pthread_test.h"
+	"algorithm/sort.h"
 
 1416450075 /project/c/c_test/getopt_test.h
 
-1416558156 /project/c/c_test/pthread_test.h
+1415675647 /project/c/c_test/pthread_test.h
 	<pthread.h>
 
-1416557397 source:/project/c/c_test/pthread_test.c
+1415675647 source:/project/c/c_test/pthread_test.c
 	<errno.h>
 	<stdio.h>
 	"pthread_test.h"
+
+1416436186 /project/c/c_test/algorithm/sort.h
+	<stdio.h>
+
+1415682725 source:/project/c/c_test/algorithm/sort.c
+	<stdio.h>
 
