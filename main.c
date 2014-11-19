@@ -1,16 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "matrix_opt.h"
 #include "getopt_test.h"
-#include "libconfig_test.h"
-#include "jerasure_test.h"
 
 int main(int argc,char *argv[])
 {
     char *s;
 
-    s = malloc(sizeof(char) * 10);
+    //getopt_long_test(argc,argv);
+    getopt_test(argc,argv);
 
-    return 0;
+    exit(EXIT_SUCCESS);
 }

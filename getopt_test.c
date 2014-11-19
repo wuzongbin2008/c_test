@@ -25,7 +25,7 @@ void getopt_test(int argc,char *argv[])
     {
         printf("opt = %c\n", opt);
         printf("optopt = %c\n", optopt);
-        printf("opterr = %c\n", opterr);
+        printf("opterr = %d\n", opterr);
         printf("optarg = %s\n", optarg);
         printf("optind = %d\n", optind);
         printf("argv[optind - 1] = %s\n\n",  argv[optind - 1]);
@@ -43,15 +43,15 @@ void getopt_long_test(int argc,char *argv[])
     char *optstring = "a:b:c:d";
     static struct option long_options[] =
     {
-        {"reqarg", required_argument, NULL, 'r'},
-        {"noarg",  no_argument,       NULL, 'n'},
+        {"reqarg", required_argument, NULL, 9},
+        {"noarg",  no_argument,       NULL, 5},
         {"optarg", optional_argument, NULL, 'o'},
         {0, 0, 0, 0}
     };
 
     while ( (opt = getopt_long(argc, argv, optstring, long_options, &option_index)) != -1)
     {
-        printf("opt = %c\n", opt);
+        printf("opt = %d\n", opt);
         printf("optarg = %s\n", optarg);
         printf("optind = %d\n", optind);
         printf("argv[optind - 1] = %s\n",  argv[optind - 1]);
