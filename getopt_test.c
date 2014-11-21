@@ -1,3 +1,6 @@
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,6 +24,8 @@ void getopt_test(int argc,char *argv[])
     int opt;
     char *optstring = "a:b:c:d";
 
+    printf("func name: %s\n",program_invocation_name);
+    printf("func short name: %s\n",program_invocation_short_name);
     while ((opt = getopt(argc, argv, optstring)) != -1)
     {
         printf("opt = %c\n", opt);
@@ -58,3 +63,4 @@ void getopt_long_test(int argc,char *argv[])
         printf("option_index = %d\n\n", option_index);
     }
 }
+#endif // _GNU_SOURCE

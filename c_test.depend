@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1416450075 source:/project/c/c_test/jerasure_test.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdint.h>
+	"jerasure_test.h"
+
+1416450075 /project/c/c_test/jerasure_test.h
+	<gf_rand.h>
+	"jerasure.h"
+
+1416450075 source:/project/c/c_test/libconfig_test.c
+	<libconfig.h>
+
+1416450075 source:/project/c/c_test/matrix_opt.c
+	<stdio.h>
+	<stdlib.h>
+	"matrix_opt.h"
+
+1416450075 /project/c/c_test/matrix_opt.h
+
+1416535729 source:/project/c/c_test/getopt_test.c
+	<getopt.h>
+	<stdio.h>
+	<stdlib.h>
+	<errno.h>
+
+1416542337 source:/project/c/c_test/main.c
+	<stdio.h>
+	<stdlib.h>
+	"pthread_test.h"
+
+1416450075 /project/c/c_test/getopt_test.h
+
+1416558156 /project/c/c_test/pthread_test.h
+	<pthread.h>
+
+1416557397 source:/project/c/c_test/pthread_test.c
+	<errno.h>
+	<stdio.h>
+	"pthread_test.h"
+

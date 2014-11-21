@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="test" />
+		<Option title="c_test" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -35,10 +35,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="getopt_test.h" />
-		<Unit filename="jerasure_test.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="jerasure_test.h" />
 		<Unit filename="libconfig_test.c">
 			<Option compilerVar="CC" />
 		</Unit>
