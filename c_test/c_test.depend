@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1416801652 source:/project/c/c_test/main.c
+	<stdio.h>
+	<stdlib.h>
+	"pthread_test.h"
+	"algorithm/sort.h"
+
+1416801652 /project/c/c_test/pthread_test.h
+	<pthread.h>
+
+1416801652 /project/c/c_test/algorithm/sort.h
+	<stdio.h>
+
