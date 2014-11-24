@@ -32,12 +32,14 @@ void thread_create_test()
     attr->name = strdup(tname);
 
     ret = pthread_create(&tidp,&t_attr,thread_worker,attr);
-    pthread_join(tidp,NULL);
+    //pthread_join(tidp,NULL);
 
     if( ret == 0)
     {
-        printf("create success\nid: %d \nname: %s\nthread_id: %d \n\n",attr->id,attr->name,attr->tid);
+        printf("main create success\nid: %d \nname: %s\nthread_id: %d \n\n",attr->id,attr->name,attr->tid);
     }else{
         perror("create pthread failed");
     }
+
+    pthread_join(tidp,NULL);
 }
