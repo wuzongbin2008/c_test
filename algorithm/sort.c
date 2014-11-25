@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "sort.h"
 
 int n = 10;
 int k[] = {2,3,1,5,0,4,9,8,7,6};

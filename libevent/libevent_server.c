@@ -5,6 +5,7 @@
 #include <string.h>
 #include <event.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define PORT        25341
 #define BACKLOG     5
@@ -37,7 +38,7 @@ void on_write(int sock, short event, void* arg)
 
 void on_read(int sock, short event, void* arg)
 {
-    struct event* write_ev;
+    //struct event* write_ev;
     int size;
     struct sock_ev* ev = (struct sock_ev*)arg;
     ev->buffer = (char*)malloc(MEM_SIZE);
@@ -58,7 +59,8 @@ void on_read(int sock, short event, void* arg)
 void on_accept(int sock, short event, void* arg)
 {
     struct sockaddr_in cli_addr;
-    int newfd, sin_size;
+    socklen_t sin_size;
+    int newfd;
     struct sock_ev* ev = (struct sock_ev*)malloc(sizeof(struct sock_ev));
     ev->read_ev = (struct event*)malloc(sizeof(struct event));
     ev->write_ev = (struct event*)malloc(sizeof(struct event));
@@ -73,9 +75,9 @@ int libevent_server_test(int argc, char* argv[])
 {
     struct sockaddr_in my_addr;
     int sock;
+    int yes = 1;
 
     sock = socket(AF_INET, SOCK_STREAM, 0);
-    int yes = 1;
     setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
     memset(&my_addr, 0, sizeof(my_addr));
     my_addr.sin_family = AF_INET;

@@ -5,6 +5,8 @@
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <string.h>
+#include <arpa/inet.h>
+
 #define cerror(str) do{perror(str); exit(EXIT_FAILURE); }while(0)
 
 static int port;
