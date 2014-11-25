@@ -6,7 +6,6 @@
 
 int main(int argc,char *argv[])
 {
-    //char *s;
 
     sort_test();
     //thread_create_test();

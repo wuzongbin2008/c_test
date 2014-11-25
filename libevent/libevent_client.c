@@ -11,7 +11,8 @@ static int port;
 static char addr[256];
 static int nlen;
 static char msg[]="hello\n";
-int main(int argc, char*argv[])
+
+int client_test(int argc, char*argv[])
 {
 
     int fd;
@@ -57,5 +58,6 @@ int main(int argc, char*argv[])
         cerror("read");
     msg[nlen]='\0';
     printf("msg: %s\n", msg);
+
     return 0;
 }
