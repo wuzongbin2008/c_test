@@ -69,7 +69,7 @@ void on_accept(int sock, short event, void* arg)
     event_add(ev->read_ev, NULL);
 }
 
-int libevent_test(int argc, char* argv[])
+int libevent_server_test(int argc, char* argv[])
 {
     struct sockaddr_in my_addr;
     int sock;

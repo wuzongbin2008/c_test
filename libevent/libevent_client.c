@@ -12,7 +12,7 @@ static char addr[256];
 static int nlen;
 static char msg[]="hello\n";
 
-int client_test(int argc, char*argv[])
+int libevent_client_test(int argc, char*argv[])
 {
 
     int fd;

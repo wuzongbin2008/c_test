@@ -7,7 +7,7 @@
 int main(int argc,char *argv[])
 {
 
-    sort_test();
+    //sort_test();
     //thread_create_test();
 
     return EXIT_SUCCESS;
