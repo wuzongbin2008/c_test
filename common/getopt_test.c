@@ -6,11 +6,11 @@
 #include <stdlib.h>
 #include <errno.h>
 
-static char *ecnotfs_config_file = "./ec_notfs.conf";
+//static char *ecnotfs_config_file = "./ec_notfs.conf";
 
-static void usage()
+void usage()
 {
-    printf("Rozofs export daemon - %s\n", 1);
+    printf("Rozofs export daemon - %s\n", "1");
     printf("Usage: exportd [OPTIONS]\n\n");
     printf("\t-h, --help\tprint this message.\n");
     printf("\t-c, --config\tconfiguration file to use (default: %s).\n","./config.conf");
@@ -43,7 +43,7 @@ void getopt_test(int argc,char *argv[])
 void getopt_long_test(int argc,char *argv[])
 {
     int opt;
-    int digit_optind = 0;
+    //int digit_optind = 0;
     int option_index = 0;
     char *optstring = "a:b:c:d";
     static struct option long_options[] =
