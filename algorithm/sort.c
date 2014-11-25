@@ -4,6 +4,18 @@ int n = 10;
 int k[] = {2,3,1,5,0,4,9,8,7,6};
 int cnt1 = 0,cnt2 = 0;
 
+void sort_test(){
+
+    int i;
+
+    insert_sort();
+
+    for(i=0;i<n;i++){
+        printf("%d",k[i]);
+    }
+    printf("\n");
+}
+
 void insert_sort()
 {
     int i,j,tmp;
@@ -26,23 +38,6 @@ void insert_sort()
             printf("\n");
         }
     }
-}
-
-void sort_test(){
-
-    int i;
-
-    //bubble_sort(a,10);
-    //bubble_sort2(a,10);
-    //bubble_sort3(a,10);
-
-    //select_sort();
-    insert_sort();
-
-    for(i=0;i<n;i++){
-        printf("%d",k[i]);
-    }
-    printf("\n");
 }
 
 void bubble_sort(int k[],int n)
