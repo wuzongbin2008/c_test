@@ -62,10 +62,13 @@ void on_accept(int sock, short event, void* arg)
     socklen_t sin_size;
     int newfd;
     struct sock_ev* ev = (struct sock_ev*)malloc(sizeof(struct sock_ev));
+
     ev->read_ev = (struct event*)malloc(sizeof(struct event));
     ev->write_ev = (struct event*)malloc(sizeof(struct event));
     sin_size = sizeof(struct sockaddr_in);
+
     newfd = accept(sock, (struct sockaddr*)&cli_addr, &sin_size);
+
     event_set(ev->read_ev, newfd, EV_READ|EV_PERSIST, on_read, ev);
     event_base_set(base, ev->read_ev);
     event_add(ev->read_ev, NULL);

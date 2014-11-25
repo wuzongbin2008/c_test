@@ -22,7 +22,7 @@ void thread_create_test()
     pthread_t tidp,tid;
     pthread_attr_t t_attr;
 
-    pthread_attr_init(&t_attr);
+    //pthread_attr_init(&t_attr);
 
     attr = (thread_attr *)calloc(1, sizeof(thread_attr));
     if(attr == NULL){
@@ -32,7 +32,7 @@ void thread_create_test()
     attr->name = strdup(tname);
 
     ret = pthread_create(&tidp,&t_attr,thread_worker,attr);
-    //pthread_join(tidp,NULL);
+    pthread_join(tidp,NULL);
 
     if( ret == 0)
     {
