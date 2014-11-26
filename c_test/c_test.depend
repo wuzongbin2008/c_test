@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1416837313 source:/project/c/c_test/main.c
+1416910346 source:/project/c/c_test/main.c
 	<stdio.h>
 	<stdlib.h>
-	"pthread_test.h"
+	"pthread/pthread_test.h"
 	"algorithm/sort.h"
+	"libevent/libevent_server.h"
 
 1416837015 /project/c/c_test/pthread_test.h
 	<pthread.h>
@@ -24,4 +25,30 @@
 	<stdlib.h>
 	<string.h>
 	<arpa/inet.h>
+
+1416901039 source:/project/c/c_test/common/getopt_test.c
+	<getopt.h>
+	<stdio.h>
+	<stdlib.h>
+	<errno.h>
+
+1416904459 source:/project/c/c_test/libevent/libevent_server.c
+	<sys/socket.h>
+	<sys/types.h>
+	<netinet/in.h>
+	<stdio.h>
+	<string.h>
+	<event.h>
+	<stdlib.h>
+	<unistd.h>
+
+1416906055 source:/project/c/c_test/pthread/pthread_test.c
+	<errno.h>
+	<stdio.h>
+	"pthread_test.h"
+
+1416801652 /project/c/c_test/pthread/pthread_test.h
+	<pthread.h>
+
+1416887879 /project/c/c_test/libevent/libevent_server.h
 

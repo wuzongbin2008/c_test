@@ -3,13 +3,13 @@
 
 #include "pthread/pthread_test.h"
 #include "algorithm/sort.h"
+#include "libevent/libevent_server.h"
 
 int main(int argc,char *argv[])
 {
 
-    //sort_test();
-    thread_create_test();
-    //printf("%d\n",1<<24);
+    int a = 0x02;
+    printf("a = %d\n", a);
 
     return EXIT_SUCCESS;
 }

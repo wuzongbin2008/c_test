@@ -49,6 +49,10 @@
 		<Unit filename="../main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="../pthread/pthread_test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../pthread/pthread_test.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
