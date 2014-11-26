@@ -9,7 +9,7 @@
 int main(int argc,char *argv[])
 {
 
-    str_test();
+    sort_test();
 
     return EXIT_SUCCESS;
 }
