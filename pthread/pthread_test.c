@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <string.h>
 #include <stdio.h>
 #include "pthread_test.h"
 
