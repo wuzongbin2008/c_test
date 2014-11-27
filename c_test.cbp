@@ -31,28 +31,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="../algorithm/sort.c">
+		<Unit filename="algorithm/sort.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../algorithm/sort.h" />
-		<Unit filename="../common/getopt_test.c">
+		<Unit filename="algorithm/sort.h" />
+		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../common/getopt_test.h" />
-		<Unit filename="../libevent/libevent_client.c">
+		<Unit filename="string/str_test.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../libevent/libevent_server.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../libevent/libevent_server.h" />
-		<Unit filename="../main.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../pthread/pthread_test.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../pthread/pthread_test.h" />
+		<Unit filename="string/str_test.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
