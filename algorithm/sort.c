@@ -10,13 +10,64 @@ void sort_test()
 
     int i;
 
-    shell_sort();
+    //printf("sizeof(int): %d\nlen: %d\n",sizeof(int),sizeof(k)/sizeof(int));
+    //exit(0);
+
+    //bubble_sort(k,n);
+    //select_sort();
+    //insert_sort();
+    quick_sort(k,n);
 
     for(i=0; i<n; i++)
     {
         printf("%d",k[i]);
     }
     printf("\n");
+}
+
+void quick_sort(int k[],int n)
+{
+    qsort(k,0,n-1);
+}
+void qsort(int k[],int low ,int high)
+{
+    int point;
+    if(low < high)
+    {
+        point = partition(k,low,high);
+        printf("point: %d\n",point);
+        qsort(k,low,point-1);
+        qsort(k,point+1,high);
+    }
+}
+int partition(int k[],int low, int high)
+{
+    int point;
+    point = k[low];
+
+    while(low < high)
+    {
+        while(low < high && k[high] >= point)
+        {
+            high--;
+        }
+        swap(k,low,high);
+        while(low < high && k[low] <= point)
+        {
+            low++;
+        }
+        swap(k,low,high);
+    }
+
+    return low;
+}
+void swap(int k[],int low,int high)
+{
+    int temp;
+
+    temp = k[low];
+    k[low] = k[high];
+    k[high] = temp;
 }
 
 void shell_sort()
@@ -78,6 +129,7 @@ void select_sort()
     cnt1 = 0;
     cnt2 = 0;
 
+
     for(i=0; i<n-1; i++)
     {
         min = i;
@@ -112,7 +164,7 @@ void bubble_sort(int k[],int n)
         for(j = i+1; j<n; j++)
         {
             cnt1++;
-            if(k[j]>k[i])
+            if(k[i] > k[j])
             {
                 cnt2++;
                 tmp = k[i];
