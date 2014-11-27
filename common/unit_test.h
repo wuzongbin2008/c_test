@@ -16,20 +16,20 @@ typedef struct buffer_pool {
 	int							bf_len;
 	int							bf_off;
 	void 						**bf_page;
-} nf_bp_t;
+} bp_t;
 
 /*********************** Chained buffer ************************/
 typedef struct buffer {
 	int							len;
 	int							off;
 	char						*last;
-	nf_bp_t						*pool;
+	bp_t						*pool;
 	STAILQ_HEAD(, block_frame)	head;
-} nf_buff_t;
+} buff_t;
 
 void get_param(int argc,char *argv[]);
 void print_file_Statfs();
 off_t get_file_offset();
 int notfs_hash();
-
+void unlikely_test();
 #endif // UNIT_TEST_H_INCLUDED

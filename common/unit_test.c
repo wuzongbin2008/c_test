@@ -9,37 +9,37 @@
 #include "queue.h"
 #define PAGE_SIZE 4096
 
-void linker_table()
-{
-    nf_buff_t *buff1=NULL;
-    nf_bp_t	*buffer_pool = NULL;
-    struct block_frame *bf, *tvar;
-    int ret,i=0,n;
-
-    buffer_pool = (nf_bp_t *)calloc(1, sizeof(nf_bp_t));
-    printf("sizeof(nf_bp_t) = %d\n",sizeof(nf_bp_t));
-
-    //first buff
-    buff1 = (nf_buff_t *)malloc(sizeof(nf_buff_t));
-    printf("sizeof(nf_buff_t) = %d\n\n",sizeof(nf_buff_t));
-    buff1->len = 1;
-    buff1->off = 1;
-    buff1->last = "first buff";
-    buff1->pool = buffer_pool;
-    STAILQ_INIT(&buff1->head);
-
-    for(n=0; n<3; n++)
-    {
-        ret = try_expand_buffer(buff1, PAGE_SIZE);
-    }
-
-//    for ( (bf) = STAILQ_FIRST((&buff1->head)); (bf) && ( (tvar) = STAILQ_NEXT((bf), field), 1 ); (bf) = (tvar) )
+//void linker_table()
+//{
+//    nf_buff_t *buff1=NULL;
+//    nf_bp_t	*buffer_pool = NULL;
+//    struct block_frame *bf, *tvar;
+//    int ret,i=0,n;
+//
+//    buffer_pool = (nf_bp_t *)calloc(1, sizeof(nf_bp_t));
+//    printf("sizeof(nf_bp_t) = %d\n",sizeof(nf_bp_t));
+//
+//    //first buff
+//    buff1 = (nf_buff_t *)malloc(sizeof(nf_buff_t));
+//    printf("sizeof(nf_buff_t) = %d\n\n",sizeof(nf_buff_t));
+//    buff1->len = 1;
+//    buff1->off = 1;
+//    buff1->last = "first buff";
+//    buff1->pool = buffer_pool;
+//    STAILQ_INIT(&buff1->head);
+//
+//    for(n=0; n<3; n++)
 //    {
-//        printf("buff %d\n",++i);
+//        ret = try_expand_buffer(buff1, PAGE_SIZE);
 //    }
-
-    printf("ret = %d\n",ret);
-}
+//
+////    for ( (bf) = STAILQ_FIRST((&buff1->head)); (bf) && ( (tvar) = STAILQ_NEXT((bf), field), 1 ); (bf) = (tvar) )
+////    {
+////        printf("buff %d\n",++i);
+////    }
+//
+//    printf("ret = %d\n",ret);
+//}
 
 void get_param(int argc,char *argv[])
 {
@@ -139,3 +139,12 @@ int nf_hash()
     return hv & i;
 }
 
+void unlikely_test()
+{
+    buff_t *bf = NULL;
+    if(unlikely(bf)){
+        printf("bf is not null\n");
+    }else{
+        printf("bf is null\n");
+    }
+}

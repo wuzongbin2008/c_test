@@ -9,7 +9,7 @@
 int main(int argc,char *argv[])
 {
 
-    sort_test();
+    unlikely_test();
 
     return EXIT_SUCCESS;
 }
