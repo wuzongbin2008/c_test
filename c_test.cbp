@@ -35,6 +35,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="algorithm/sort.h" />
+		<Unit filename="common/getopt_test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="common/getopt_test.h" />
+		<Unit filename="common/unit_test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="common/unit_test.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
