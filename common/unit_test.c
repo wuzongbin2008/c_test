@@ -9,38 +9,99 @@
 #include "queue.h"
 #define PAGE_SIZE 4096
 
-//void linker_table()
-//{
-//    nf_buff_t *buff1=NULL;
-//    nf_bp_t	*buffer_pool = NULL;
-//    struct block_frame *bf, *tvar;
-//    int ret,i=0,n;
-//
-//    buffer_pool = (nf_bp_t *)calloc(1, sizeof(nf_bp_t));
-//    printf("sizeof(nf_bp_t) = %d\n",sizeof(nf_bp_t));
-//
-//    //first buff
-//    buff1 = (nf_buff_t *)malloc(sizeof(nf_buff_t));
-//    printf("sizeof(nf_buff_t) = %d\n\n",sizeof(nf_buff_t));
-//    buff1->len = 1;
-//    buff1->off = 1;
-//    buff1->last = "first buff";
-//    buff1->pool = buffer_pool;
-//    STAILQ_INIT(&buff1->head);
-//
-//    for(n=0; n<3; n++)
-//    {
-//        ret = try_expand_buffer(buff1, PAGE_SIZE);
-//    }
-//
-////    for ( (bf) = STAILQ_FIRST((&buff1->head)); (bf) && ( (tvar) = STAILQ_NEXT((bf), field), 1 ); (bf) = (tvar) )
-////    {
-////        printf("buff %d\n",++i);
-////    }
-//
-//    printf("ret = %d\n",ret);
-//}
+int add_entry(nf_key_t *key, nf_pos_t *pos)
+{
+	int new;
+	nf_pos_t *ptr;
+	struct hash_entry *entry;
+	struct hash_entry **next = NULL;
 
+	/* bug: WHEN LIST IS NULL */
+	entry = _find_entry(key, &next);
+	if (entry == NULL) {
+		entry = _new_entry(key);
+		if (entry == NULL) {
+			return NF_E_NEWENTRY;
+		}
+		//SLIST_INSERT_AFTER(last, entry, field);
+		*next = entry;
+		new = 1;
+	}
+
+	ptr = get_pos(entry, key);
+
+	return 0;
+}
+struct hash_entry * _find_entry(nf_key_t *key, struct hash_entry ***next)
+{
+	int hv;
+	unsigned int len = 0;
+	struct list_head *head;
+	struct hash_entry *entry, *target = NULL;
+
+	hv = hash(key);
+	head = nf_hash_table + hv;
+
+	if (unlikely(next)) {
+		*next = &SLIST_FIRST(head);
+		SLIST_FOREACH(entry, head, field) {
+			len++;
+			*next = &SLIST_NEXT(entry, field);
+			if (compare(key, entry) == 0) {
+				target = entry;
+				break;
+			}
+		}
+	} else {
+		SLIST_FOREACH(entry, head, field) {
+			len++;
+			if (compare(key, entry) == 0) {
+				target = entry;
+				break;
+			}
+		}
+	}
+#ifdef DEBUG
+	printf("earch len = %d\n", len);
+	printf("lengest_chain = %d\n", longest_chain);
+#endif
+	if (len > longest_chain) longest_chain = len;
+	return target;
+}
+
+struct hash_entry * _new_entry(nf_key_t *key)
+{
+	struct hash_entry *new;
+
+	//new = calloc(1, sizeof(struct hash_entry));
+	new = block_pool_alloc(&pic_idx_mem_pool, sizeof(struct hash_entry));
+	if (new) {
+		memset(new, 0, sizeof(struct hash_entry));
+		memcpy(new->key, key->key+PIC_KEY_PREFIX, PIC_KEY_SIZE);
+	}
+
+	return new;
+}
+void * block_pool_alloc(nf_pool_t *pool, size_t count)
+{
+	int ret;
+	void *ptr;
+	size_t len;
+
+	len = nf_align(size_t, count, 8);
+	if (len > NF_PAGE_SIZE) return NULL;
+
+	if (len > (NF_PAGE_SIZE - pool->off)) {
+		ret = expand_block_pool(pool);
+		if (ret == -1) return NULL;
+	}
+
+	ptr = pool->ptr + pool->off;
+	pool->off += len;
+	pool->objs ++;
+
+	return ptr;
+}
 void get_param(int argc,char *argv[])
 {
     int result;

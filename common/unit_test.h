@@ -3,6 +3,7 @@
 
 #include "queue.h"
 
+#define PIC_KEY_PREFIX		8
 #define likely(x)	__builtin_expect(!!(x), 1)
 #define unlikely(x)	__builtin_expect(!!(x), 0)
 #define nf_align(type, size, align) (((size)+(align)-1) & ((type)~((align)-1)))
@@ -26,6 +27,18 @@ typedef struct buffer {
 	bp_t						*pool;
 	STAILQ_HEAD(, block_frame)	head;
 } buff_t;
+
+typedef struct nf_obj_pos {
+	uint32_t	volid;
+	uint32_t	size;
+	uint64_t	offset;
+} nf_pos_t;
+struct hash_entry {
+	char						key[PIC_KEY_SIZE];
+	uint32_t					flags;
+	nf_pos_t					pos[5];
+	SLIST_ENTRY(hash_entry)		field;
+};
 
 void get_param(int argc,char *argv[]);
 void print_file_Statfs();
