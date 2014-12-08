@@ -25,6 +25,24 @@ void sort_test()
     printf("\n");
 }
 
+void merge_sort(int k[],int n){
+    if (n > 1)
+    {
+        int *list1-k;
+        int list1_size - n/2;
+    }
+}
+void mergeAB(int c[],int a[],int n,int b[],int m)
+{
+    int i,j,k;
+    for(i=0,j=0,k=0;k < n+m ;k++)
+    {
+        if(i == n ){ c[k] = b[j++];continue;}
+        if(j == m ){ c[k] = a[i++];continue;}
+        c[k] = (less(a[i],a[j])) ? a[i++]:a[j++];
+    }
+}
+
 void quick_sort(int k[],int n)
 {
     qsort(k,0,n-1);
