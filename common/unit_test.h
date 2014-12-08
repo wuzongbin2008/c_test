@@ -1,8 +1,10 @@
 #ifndef UNIT_TEST_H_INCLUDED
 #define UNIT_TEST_H_INCLUDED
 
+#include <stdint.h>
 #include "queue.h"
 
+#define PIC_KEY_SIZE        32
 #define PIC_KEY_PREFIX		8
 #define likely(x)	__builtin_expect(!!(x), 1)
 #define unlikely(x)	__builtin_expect(!!(x), 0)

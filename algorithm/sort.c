@@ -3,6 +3,9 @@
 
 int n = 10;
 int k[] = {2,3,1,5,0,4,9,8,7,6};
+int a[] = {3,5,8};
+int b[] = {4,7,9,10};
+int c[7];
 int cnt1 = 0,cnt2 = 0;
 
 void sort_test()
@@ -16,21 +19,21 @@ void sort_test()
     //bubble_sort(k,n);
     //select_sort();
     //insert_sort();
-    quick_sort(k,n);
+    mergeAB(c,a,3,b,4);
 
-    for(i=0; i<n; i++)
+    for(i=0; i<7; i++)
     {
-        printf("%d",k[i]);
+        printf("%d",c[i]);
     }
     printf("\n");
 }
 
 void merge_sort(int k[],int n){
-    if (n > 1)
-    {
-        int *list1-k;
-        int list1_size - n/2;
-    }
+//    if (n > 1)
+//    {
+//        int *list1-k;
+//        int list1_size - n/2;
+//    }
 }
 void mergeAB(int c[],int a[],int n,int b[],int m)
 {
@@ -40,6 +43,14 @@ void mergeAB(int c[],int a[],int n,int b[],int m)
         if(i == n ){ c[k] = b[j++];continue;}
         if(j == m ){ c[k] = a[i++];continue;}
         c[k] = (less(a[i],a[j])) ? a[i++]:a[j++];
+    }
+}
+int less(int a,int b)
+{
+    if(a < b){
+        return 1;
+    }else{
+        return 0;
     }
 }
 
