@@ -13,17 +13,11 @@ void sort_test()
 
     int i;
 
-    //printf("sizeof(int): %d\nlen: %d\n",sizeof(int),sizeof(k)/sizeof(int));
-    //exit(0);
-
-    //bubble_sort(k,n);
-    //select_sort();
-    //insert_sort();
     mergeAB(c,a,3,b,4);
 
     for(i=0; i<7; i++)
     {
-        printf("%d",c[i]);
+        printf("%d\t",c[i]);
     }
     printf("\n");
 }
@@ -42,12 +36,13 @@ void mergeAB(int c[],int a[],int n,int b[],int m)
     {
         if(i == n ){ c[k] = b[j++];continue;}
         if(j == m ){ c[k] = a[i++];continue;}
-        c[k] = (less(a[i],a[j])) ? a[i++]:a[j++];
+        c[k] = (less(a[i],b[j])) ? a[i++] : b[j++];
     }
 }
 int less(int a,int b)
 {
     if(a < b){
+        //printf("less\n");
         return 1;
     }else{
         return 0;
