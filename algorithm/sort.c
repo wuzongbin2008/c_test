@@ -16,7 +16,8 @@ void sort_test()
     int i;
 
     iteration_merge_sort(k, n);
-    for(i=0; i<n; i++)
+    printf("\nsort result:\n");
+    for( i=0; i < n; i++)
     {
         printf("%d\t", k[i]);
     }
@@ -26,7 +27,7 @@ void sort_test()
 //merge sort
 void iteration_merge_sort(int k[], int n)
 {
-    int i,left_min,left_max,right_min,right_max,next;
+    int i, left_min, left_max, right_min, right_max,next, j, m;
     int *tmp = (int *)malloc(n * sizeof(int));
 
     for(i = 1; i < n; i *= 2)
@@ -57,12 +58,18 @@ void iteration_merge_sort(int k[], int n)
                 k[--right_max] = k[--left_max];
             }
 
+            //print_k(tmp, next);
+            while(next > 0)
+            {
+                m = tmp[--next];
+                k[--right_min] = tmp[--next];
+            }
 
+            for( j = 0; j < 10; j++){
+                printf("%d\t", k[j]);
+            }
+            printf("\n");
         }
-    }
-    while(next > 0)
-    {
-        k[--right_min] = tmp[--next];
     }
 }
 void recursion_merge_sort(int k[],int n){
@@ -328,3 +335,13 @@ void bubble_sort3(int k[],int n)
     printf("compare count: %d,\tmove count: %d\n",cnt1,cnt2);
 }
 
+void print_k(int a[], int n)
+{
+    int i;
+
+    for( i=0; i < n; i++)
+    {
+        printf("%d\t", a[i]);
+    }
+    printf("\n");
+}

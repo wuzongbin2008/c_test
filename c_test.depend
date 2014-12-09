@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1418116452 source:/project/c/c_test/algorithm/sort.c
+1418119338 source:/project/c/c_test/algorithm/sort.c
 	<stdio.h>
 	"sort.h"
 
-1418115751 /project/c/c_test/algorithm/sort.h
+1418118904 /project/c/c_test/algorithm/sort.h
 	<stdio.h>
 
 1416959801 ated upstream

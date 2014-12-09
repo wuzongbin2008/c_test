@@ -20,3 +20,4 @@ void bubble_sort2(int a[],int n);
 void bubble_sort3(int a[],int n);
 
 void sort_test();
+void print_k(int k[], int n);
