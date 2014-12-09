@@ -6,6 +6,8 @@ int k[] = {2,3,1,5,0,4,9,8,7,6};
 int a[] = {3,5,8};
 int b[] = {4,7,9,10};
 int c[7];
+int d[3] = {1,6,2};
+int t[10];
 int cnt1 = 0,cnt2 = 0;
 
 void sort_test()
@@ -14,10 +16,10 @@ void sort_test()
     int i;
 
     mergeAB(c,a,3,b,4);
-
-    for(i=0; i<7; i++)
+    mergeAB(t,c,7,d,3);
+    for(i=0; i<10; i++)
     {
-        printf("%d\t",c[i]);
+        printf("%d\t",t[i]);
     }
     printf("\n");
 }
