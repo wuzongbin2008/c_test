@@ -39,21 +39,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="common/getopt_test.h" />
-		<Unit filename="limi_t.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="limit_t.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="memory/mem_t.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="memory/mem_t.h" />
-		<Unit filename="process/fork_t.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="process/fork_t.h" />
 		<Unit filename="string/str_test.c">
 			<Option compilerVar="CC" />
 		</Unit>

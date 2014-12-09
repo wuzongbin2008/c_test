@@ -1,28 +1,36 @@
 # depslib dependency file v1.0
 1419242865 source:/project/c/c_test/algorithm/sort.c
 
-1417139249 /project/c/c_test/algorithm/sort.h
+1416967393 /project/c/c_test/algorithm/sort.h
 	<stdio.h>
 
+<<<<<<< Updated upstream
 1419306522 source:/project/c/c_test/main.c
+=======
+1418079620 source:/project/c/c_test/main.c
+>>>>>>> Stashed changes
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"memory/mem_t.h"
 
-1417139249 /project/c/c_test/pthread/pthread_test.h
+1416954903 /project/c/c_test/pthread/pthread_test.h
 	<pthread.h>
 
-1417139249 /project/c/c_test/libevent/libevent_server.h
+1416954903 /project/c/c_test/libevent/libevent_server.h
 
-1417139249 /project/c/c_test/string/str_test.h
+1416959801 /project/c/c_test/string/str_test.h
 
+<<<<<<< Updated upstream
 1419242750 source:/project/c/c_test/string/str_test.c
+=======
+1416959801 source:/project/c/c_test/string/str_test.c
+>>>>>>> Stashed changes
 	<stdio.h>
 	<string.h>
 	"str_test.h"
 
-1417139249 source:/project/c/c_test/common/getopt_test.c
+1416959729 source:/project/c/c_test/common/getopt_test.c
 	<getopt.h>
 	<stdio.h>
 	<stdlib.h>
@@ -38,11 +46,11 @@
 	"unit_test.h"
 	"queue.h"
 
-1418088649 /project/c/c_test/common/unit_test.h
+1418079620 /project/c/c_test/common/unit_test.h
 	<stdint.h>
 	"queue.h"
 
-1417139249 /project/c/c_test/common/queue.h
+1416971573 /project/c/c_test/common/queue.h
 
 1418715509 source:/project/c/c_test/process/fork_t.c
 	<stdio.h>
