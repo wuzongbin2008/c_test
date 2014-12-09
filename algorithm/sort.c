@@ -40,39 +40,45 @@ void iteration_merge_sort(int k[], int n)
             if(right_max > n) right_max = n;
 
             next = 0;
-
+            int tmp2;
             while(left_min < left_max && right_min < right_max)
             {
                 if(k[left_min] < k[right_min])
                 {
-                    tmp[next++] = k[left_min++];
+                    tmp2 = k[left_min++];
+                    tmp[next++] = tmp2;
                 }
                 else
                 {
-                    tmp[next++] = k[right_min++];
+                    tmp2 = k[right_min++];
+                    tmp[next++] = tmp2;
                 }
             }
 
             while(left_min < left_max)
             {
-                k[--right_max] = k[--left_max];
+                printf("left_min: %d\tleft_max: %d\nright_min: %d\tright_max: %d\n\n", left_min, left_max, right_min, right_max);
+                k[--right_min] = k[--left_max];
             }
 
             //print_k(tmp, next);
             while(next > 0)
             {
                 m = tmp[--next];
-                k[--right_min] = tmp[--next];
+                k[--right_min] = m;
             }
 
-            for( j = 0; j < 10; j++){
+            printf("\ni= %d:\t", i);
+            for( j = 0; j < 10; j++)
+            {
                 printf("%d\t", k[j]);
             }
             printf("\n");
         }
     }
 }
-void recursion_merge_sort(int k[],int n){
+void recursion_merge_sort(int k[],int n)
+{
     if (n > 1)
     {
         int *list1 = k;
@@ -97,7 +103,9 @@ void merging(int *list1, int size1, int *list2, int size2)
         if(list1[i] < list2[j])
         {
             temp[k++] = list1[i++];
-        }else{
+        }
+        else
+        {
             temp[k++] = list2[j++];
         }
     }
@@ -117,19 +125,30 @@ void merging(int *list1, int size1, int *list2, int size2)
 void mergeAB(int c[],int a[],int n,int b[],int m)
 {
     int i,j,k;
-    for(i=0,j=0,k=0;k < n+m ;k++)
+    for(i=0,j=0,k=0; k < n+m ; k++)
     {
-        if(i == n ){ c[k] = b[j++];continue;}
-        if(j == m ){ c[k] = a[i++];continue;}
+        if(i == n )
+        {
+            c[k] = b[j++];
+            continue;
+        }
+        if(j == m )
+        {
+            c[k] = a[i++];
+            continue;
+        }
         c[k] = (less(a[i],b[j])) ? a[i++] : b[j++];
     }
 }
 int less(int a,int b)
 {
-    if(a < b){
+    if(a < b)
+    {
         //printf("less\n");
         return 1;
-    }else{
+    }
+    else
+    {
         return 0;
     }
 }
