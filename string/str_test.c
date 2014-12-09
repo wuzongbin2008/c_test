@@ -10,7 +10,6 @@ void str_test()
 void strerror_t()
 {
     char *s;
-    int no = 2;
 
     s = strerror(3);
     printf("%s\n",s);

@@ -15,17 +15,57 @@ void sort_test()
 
     int i;
 
-    //mergeAB(c,a,3,b,4);
-    //mergeAB(t,c,7,d,3);
-    merge_sort(k,n);
+    iteration_merge_sort(k, n);
     for(i=0; i<n; i++)
     {
-        printf("%d\t",k[i]);
+        printf("%d\t", k[i]);
     }
     printf("\n");
 }
 
-void merge_sort(int k[],int n){
+//merge sort
+void iteration_merge_sort(int k[], int n)
+{
+    int i,left_min,left_max,right_min,right_max,next;
+    int *tmp = (int *)malloc(n * sizeof(int));
+
+    for(i = 1; i < n; i *= 2)
+    {
+        for(left_min = 0; left_min < n - i; left_min = right_max)
+        {
+            right_min = left_max = left_min + i;
+            right_max = left_max + i;
+
+            if(right_max > n) right_max = n;
+
+            next = 0;
+
+            while(left_min < left_max && right_min < right_max)
+            {
+                if(k[left_min] < k[right_min])
+                {
+                    tmp[next++] = k[left_min++];
+                }
+                else
+                {
+                    tmp[next++] = k[right_min++];
+                }
+            }
+
+            while(left_min < left_max)
+            {
+                k[--right_max] = k[--left_max];
+            }
+
+
+        }
+    }
+    while(next > 0)
+    {
+        k[--right_min] = tmp[--next];
+    }
+}
+void recursion_merge_sort(int k[],int n){
     if (n > 1)
     {
         int *list1 = k;
@@ -33,8 +73,8 @@ void merge_sort(int k[],int n){
         int *list2 = k + n/2;
         int list2_size = n - list1_size;
 
-        merge_sort(list1, list1_size);
-        merge_sort(list2, list2_size);
+        recursion_merge_sort(list1, list1_size);
+        recursion_merge_sort(list2, list2_size);
 
         merging(list1, list1_size, list2, list2_size);
 
@@ -87,51 +127,7 @@ int less(int a,int b)
     }
 }
 
-void quick_sort(int k[],int n)
-{
-    qsort(k,0,n-1);
-}
-void qsort(int k[],int low ,int high)
-{
-    int point;
-    if(low < high)
-    {
-        point = partition(k,low,high);
-        printf("point: %d\n",point);
-        qsort(k,low,point-1);
-        qsort(k,point+1,high);
-    }
-}
-int partition(int k[],int low, int high)
-{
-    int point;
-    point = k[low];
-
-    while(low < high)
-    {
-        while(low < high && k[high] >= point)
-        {
-            high--;
-        }
-        swap(k,low,high);
-        while(low < high && k[low] <= point)
-        {
-            low++;
-        }
-        swap(k,low,high);
-    }
-
-    return low;
-}
-void swap(int k[],int low,int high)
-{
-    int temp;
-
-    temp = k[low];
-    k[low] = k[high];
-    k[high] = temp;
-}
-
+//insert sort
 void shell_sort()
 {
     int i,j,tmp;
@@ -185,6 +181,7 @@ void insert_sort()
     }
 }
 
+//select sort
 void select_sort()
 {
     int i,j,min,tmp;
@@ -215,6 +212,51 @@ void select_sort()
     printf("compare count: %d,\tmove count: %d\n",cnt1,cnt2);
 }
 
+//swap sort
+void quick_sort(int k[],int n)
+{
+    qk_sort(k,0,n-1);
+}
+void qk_sort(int k[], int low , int high)
+{
+    int point;
+    if(low < high)
+    {
+        point = partition(k, low, high);
+        printf("point: %d\n", point);
+        qk_sort(k, low, point-1);
+        qk_sort(k, point+1, high);
+    }
+}
+int partition(int k[],int low, int high)
+{
+    int point;
+    point = k[low];
+
+    while(low < high)
+    {
+        while(low < high && k[high] >= point)
+        {
+            high--;
+        }
+        swap(k,low,high);
+        while(low < high && k[low] <= point)
+        {
+            low++;
+        }
+        swap(k,low,high);
+    }
+
+    return low;
+}
+void swap(int k[],int low,int high)
+{
+    int temp;
+
+    temp = k[low];
+    k[low] = k[high];
+    k[high] = temp;
+}
 void bubble_sort(int k[],int n)
 {
     int i,j,tmp;
