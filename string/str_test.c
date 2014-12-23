@@ -7,6 +7,15 @@ void str_test()
     make_no();
 }
 
+void strerror_t()
+{
+    char *s;
+    int no = 2;
+
+    s = strerror(3);
+    printf("%s\n",s);
+}
+
 void make_no()
 {
     char *name;
