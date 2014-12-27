@@ -5,18 +5,19 @@
 #include <stdint.h>
 
 //#include "pthread/pthread_test.h"
-//#include "algorithm/sort.h"
+#include "algorithm/sort.h"
 //#include "libevent/libevent_server.h"
 //#include "string/str_test.h"
 //#include "common/getopt_test.h"
 //#include "process/fork_t.h"
 //#include "memory/mem_t.h"
 //#include "common/limit_t.h"
-#include "file/file_test.h"
+//#include "file/file_test.h"
 
 int main(int argc,char *argv[])
 {
     printf("hello world: %d\n", sizeof(uint32_t));
+    sort_test();
 
     return EXIT_SUCCESS;
 }

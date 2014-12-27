@@ -6,7 +6,7 @@ void merging(int *list1, int size1, int *list2, int size2);
 void mergeAB(int c[],int a[],int n,int b[],int m);
 int less(int a,int b);
 
-void select_sort();
+void simple_select_sort();
 
 void insert_sort();
 void shell_sort();

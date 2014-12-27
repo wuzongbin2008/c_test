@@ -214,7 +214,6 @@ void select_sort()
     cnt1 = 0;
     cnt2 = 0;
 
-
     for(i=0; i<n-1; i++)
     {
         min = i;
