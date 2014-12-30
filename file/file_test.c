@@ -5,6 +5,16 @@
 
 #include "file_test.h"
 
+char * get_path()
+{
+    char *str;
+    str = alloca(PATH_MAX);
+    getcwd(str, PATH_MAX);
+    printf("pwd: %s\n", str);
+
+    return str;
+}
+
 void create_file(char *filename){
         int fd = open(filename, O_RDWR, 0777);
         if (fd == -1){

@@ -570,6 +570,7 @@ int * allocate_result(int size) {
       return (int *) p;
 }
 
+#ifdef UNIT_TEST
 int main(int argc, char **argv) {
       pid_t pid[2000];
       int proc;
@@ -611,3 +612,4 @@ int main(int argc, char **argv) {
       printf("OK %d / FAILURE %d\n",nbProcess+ret, -ret);
       exit(ret);
 }
+#endif
