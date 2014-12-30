@@ -7,6 +7,25 @@ void str_test()
     make_no();
 }
 
+void str_cpy_t()
+{
+    char *name = "logs/err.log", *p, c;
+    char *prefix = "/usr/local/nginx/";
+    int plen = 5, nlen = 10;
+
+    nlen = strlen(name);
+    plen = strlen(prefix);
+
+    name = malloc(plen + nlen + 2);
+    if (name == NULL) {
+        return NULL;
+    }
+
+    p = memcpy(name, prefix, plen);
+    c = *(p);
+    printf("c: %c\n", c);
+}
+
 void strerror_t()
 {
     char *s;

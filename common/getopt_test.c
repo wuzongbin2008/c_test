@@ -7,6 +7,38 @@
 #include <errno.h>
 
 //static char *ecnotfs_config_file = "./ec_notfs.conf";
+void argv_t(int argc, char *argv[])
+{
+    int i;
+    char *p;
+    printf("argc: %d\n", argc);
+    for (i = 1; i < argc; i++)
+    {
+
+        p = (char *) argv[i];
+        printf("p: %s\n", p);
+        printf("*p: %c\n", *p);
+        //printf("*p++: %c\n", *p);
+
+        if (*p++ != '-')
+        {
+            printf("invalid option: \"%s\"", argv[i]);
+            return -1;
+        }
+
+        while (*p)
+        {
+            switch(*p++){
+            case 'h':
+                printf("1: %c\n", *(p-1));
+                break;
+            case 'v':
+                printf("2: %c\n", *(p-1));
+                break;
+            }
+        }
+    }
+}
 
 void usage()
 {
