@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdint.h>
 
 //#include "pthread/pthread_test.h"
 //#include "algorithm/sort.h"
@@ -15,7 +16,7 @@
 
 int main(int argc,char *argv[])
 {
-    printf("hello world\n");
-    get_path();
+    printf("hello world: %d\n", sizeof(uint32_t));
+
     return EXIT_SUCCESS;
 }
