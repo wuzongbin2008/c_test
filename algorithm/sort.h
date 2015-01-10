@@ -86,7 +86,9 @@ void simple_select_sort();
 
 void straight_insert_sort();
 void binary_insert_sort();
+void P2_InsertSort();
 void shell_sort();
+void print_SqList(SqList L);
 
 void quick_sort(int k[],int n);
 void qk_sort(int k[],int low ,int high);

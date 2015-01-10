@@ -31,6 +31,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="algorithm/C10-1.H" />
+		<Unit filename="algorithm/C10-2.H" />
+		<Unit filename="algorithm/c1-1.h" />
+		<Unit filename="algorithm/c1.h" />
+		<Unit filename="algorithm/c10-3.h" />
 		<Unit filename="algorithm/sort.c">
 			<Option compilerVar="CC" />
 		</Unit>
