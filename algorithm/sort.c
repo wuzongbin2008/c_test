@@ -15,7 +15,8 @@ void sort_test()
 
     int i;
 
-    iteration_merge_sort(k, n);
+    //iteration_merge_sort(k, n);
+    radix_sort();
     printf("\nsort result:\n");
     for( i=0; i < n; i++)
     {
