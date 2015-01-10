@@ -5,10 +5,10 @@
  #include<limits.h> // INT_MAX等
  #include<stdio.h> // EOF(=^Z或F6),NULL
  #include<stdlib.h> // atoi()
- #include<io.h> // eof()
+ //#include<io.h> // eof()
  #include<math.h> // floor(),ceil(),abs()
- #include<process.h> // exit()
- #include<iostream.h> // cout,cin
+// #include<process.h> // exit()
+ //#include<iostream.h> // cout,cin
  // 函数结果状态代码
  #define TRUE 1
  #define FALSE 0

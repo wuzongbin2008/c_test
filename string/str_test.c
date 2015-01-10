@@ -4,9 +4,20 @@
 
 void str_test()
 {
-    make_no();
+    char *new;
+    char *src = "strcpy test";
+
+    new = alloca(strlen(src) * sizeof(char));
+    strcpy_t(new, src);
+
+    printf("new: %s\n", new);
 }
 
+void strcpy_t(char *dst, char const *src)
+{
+    while ((*dst++ = *src++) != '\0')
+        ;
+}
 void str_cpy_t()
 {
     char *name = "logs/err.log", *p, c;
@@ -23,7 +34,7 @@ void str_cpy_t()
 
     p = memcpy(name, prefix, plen);
     c = *(p);
-    printf("c: %c\n", c);
+    printf("c: %s\n", name);
 }
 
 void strerror_t()

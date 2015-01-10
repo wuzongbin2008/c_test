@@ -2,27 +2,17 @@
 #include"c1.h"
 #include"c10-3.h"
 
-// alg10-11.cpp 链式基数排序
-typedef int InfoType; // 定义其它数据项的类型
-typedef int KeyType; // 定义RedType类型的关键字为整型
-struct RedType // 记录类型(同c10-1.h)
-{
-    KeyType key; // 关键字项
-    InfoType otherinfo; // 其它数据项
-};
-typedef char KeysType; // 定义关键字类型为字符型
-
 void radix_sort();
-void InitList(SLList &L,RedType D[],int n);
+void InitList(SLList *L,RedType D[],int n);
 int ord(char c);
 void Distribute(SLCell r[],int i,ArrType f,ArrType e);
 int succ(int i);
 void Collect(SLCell r[],ArrType f,ArrType e);
-void printl(SLList L);
-void RadixSort(SLList &L);
-void print(SLList L);
-void Sort(SLList L,int adr[]); // 改此句(类型)
-void Rearrange(SLList &L,int adr[]);
+void printl(SLList *L);
+void RadixSort(SLList *L);
+void print(SLList *L);
+void Sort(SLList *L,int adr[]); // 改此句(类型)
+void Rearrange(SLList *L,int adr[]);
 
 void recursion_merge_sort(int k[], int n);
 void iteration_merge_sort(int k[], int n);
