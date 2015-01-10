@@ -18,6 +18,7 @@ void strcpy_t(char *dst, char const *src)
     while ((*dst++ = *src++) != '\0')
         ;
 }
+
 void str_cpy_t()
 {
     char *name = "logs/err.log", *p, c;
