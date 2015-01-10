@@ -41,6 +41,7 @@
    d=(RedType*)malloc(L.length*sizeof(RedType)); // 生成L.length个记录的临时空间
    d[0]=L.r[1]; // 设L的第1个记录为d中排好序的记录(在位置[0])
    first=final=0; // first、final分别指示d中排好序的记录的第1个和最后1个记录的位置
+
    for(i=2;i<=L.length;++i)
    { // 依次将L的第2个～最后1个记录插入d中
      if(L.r[i].key<d[first].key)
@@ -64,6 +65,8 @@
        d[j+1]=L.r[i];
      }
    }
+
    for(i=1;i<=L.length;i++) // 把d赋给L.r
      L.r[i]=d[(i+first-1)%L.length]; // 线性关系
+
  }

@@ -463,13 +463,18 @@ void P2_InsertSort()
     // 2_路插入排序
     int i, j, first, final;
     //RedType *d;
-    //d = (RedType*)malloc(L.length*sizeof(RedType)); // 生成L.length个记录的临时空间
+    //d = (RedType*)malloc(N * sizeof(RedType)); // 生成L.length个记录的临时空间
     RedType d[N]={{49,1},{38,2},{65,3},{97,4},{76,5},{13,6},{27,7},{49,8},{55,9},{4,10}};
 
     SqList L;
     int dt[3]={5,3,1}; // 增量序列数组
     for(i=0; i<N; i++)
      L.r[i+1]=d[i];
+    print_RedType(d);
+    memset(d, 0, sizeof(d));
+    printf("RedType d[N] memset :\n");
+    print_RedType(d);
+
     L.length=N;
     printf("l排序前:\n");
     print_SqList(L);
@@ -544,6 +549,17 @@ void print_SqList(SqList L)
     int i;
     for(i=1;i<=L.length;i++)
      printf("%d ",L.r[i].key);
+    printf("\n");
+}
+void print_RedType(RedType *arr)
+{
+    int i, n;
+    //n = sizeof(arr)/sizeof(RedType);
+    //printf("arr len: %d\n", n);
+    for (i = 0; i < N; i++)
+    {
+        printf("%d\t", arr[i].key);
+    }
     printf("\n");
 }
 
