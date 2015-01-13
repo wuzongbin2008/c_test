@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1421115680 source:/project/c/c_test/algorithm/sort.c
+1421117564 source:/project/c/c_test/algorithm/sort.c
 	<stdio.h>
 	"sort.h"
 
-1421115493 /project/c/c_test/algorithm/sort.h
+1421116658 /project/c/c_test/algorithm/sort.h
 	<string.h>
 	<ctype.h>
 	<malloc.h>

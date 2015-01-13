@@ -25,6 +25,7 @@
  #define LT(a,b) ((a)<(b))
  #define LQ(a,b) ((a)<=(b))
 // #define OVERFLOW -2 因为在math.h中已定义OVERFLOW的值为3,故去掉此行
+
 typedef int Status; // Status是函数的类型,其值是函数结果状态代码，如OK等
 typedef int Boolean; // Boolean是布尔类型,其值是TRUE或FALSE
 // alg10-11.cpp 链式基数排序
@@ -61,7 +62,6 @@ typedef struct  // 静态链表类型
     int recnum; //  静态链表的当前长度
 } SLList;
 typedef int ArrType[RADIX]; // 指针数组类型
-
 
 
 void radix_sort();
