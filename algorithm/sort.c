@@ -18,13 +18,31 @@ void sort_test()
     int i;
 
     //iteration_merge_sort(k, n);
-    binary_insert_sort();
-    printf("\nsort result:\n");
-    for( i=1; i <= n; i++)
+    sort_on_and_o1();
+//    printf("\nsort result:\n");
+//    for( i=1; i <= n; i++)
+//    {
+//        printf("%d\t", k[i]);
+//    }
+//    printf("\n");
+}
+
+void sort_on_and_o1()
+{
+    int temp, i;
+    int a[] = {10,6,9,5,2,8,4,7,1,3};
+    int len = sizeof(a) / sizeof(int);
+
+    for(i = 0; i < len; )
     {
-        printf("%d\t", k[i]);
+        temp = a[a[i] - 1];
+        a[a[i] - 1] = a[i];
+        a[i] = temp;
+
+        if (a[i] == i + 1)
+            i++;
     }
-    printf("\n");
+    print_k(a, len);
 }
 
 //radix sort
@@ -389,44 +407,44 @@ void binary_insert_sort()
 
     }
 }
-void P2_InsertSort()
-{
-    // 2_路插入排序
-    int i,j,first,final;
-    RedType *d;
-    d=(RedType*)malloc(L.length*sizeof(RedType)); // 生成L.length个记录的临时空间
-    d[0]=L.r[1]; // 设L的第1个记录为d中排好序的记录(在位置[0])
-    first=final=0; // first、final分别指示d中排好序的记录的第1个和最后1个记录的位置
-    for(i=2; i<=L.length; ++i)
-    {
-        // 依次将L的第2个～最后1个记录插入d中
-        if(L.r[i].key<d[first].key)
-        {
-            // 待插记录小于d中最小值，插到d[first]之前(不需移动d数组的元素)
-            first=(first-1+L.length)%L.length; // 设d为循环向量
-            d[first]=L.r[i];
-        }
-        else if(L.r[i].key>d[final].key)
-        {
-            // 待插记录大于d中最大值，插到d[final]之后(不需移动d数组的元素)
-            final=final+1;
-            d[final]=L.r[i];
-        }
-        else
-        {
-            // 待插记录大于d中最小值，小于d中最大值，插到d的中间(需要移动d数组的元素)
-            j=final++; // 移动d的尾部元素以便按序插入记录
-            while(L.r[i].key<d[j].key)
-            {
-                d[(j+1)%L.length]=d[j];
-                j=(j-1+L.length)%L.length;
-            }
-            d[j+1]=L.r[i];
-        }
-    }
-    for(i=1; i<=L.length; i++) // 把d赋给L.r
-        L.r[i]=d[(i+first-1)%L.length]; // 线性关系
-}
+//void P2_InsertSort()
+//{
+//    // 2_路插入排序
+//    int i,j,first,final;
+//    RedType *d;
+//    d=(RedType*)malloc(L.length*sizeof(RedType)); // 生成L.length个记录的临时空间
+//    d[0]=L.r[1]; // 设L的第1个记录为d中排好序的记录(在位置[0])
+//    first=final=0; // first、final分别指示d中排好序的记录的第1个和最后1个记录的位置
+//    for(i=2; i<=L.length; ++i)
+//    {
+//        // 依次将L的第2个～最后1个记录插入d中
+//        if(L.r[i].key<d[first].key)
+//        {
+//            // 待插记录小于d中最小值，插到d[first]之前(不需移动d数组的元素)
+//            first=(first-1+L.length)%L.length; // 设d为循环向量
+//            d[first]=L.r[i];
+//        }
+//        else if(L.r[i].key>d[final].key)
+//        {
+//            // 待插记录大于d中最大值，插到d[final]之后(不需移动d数组的元素)
+//            final=final+1;
+//            d[final]=L.r[i];
+//        }
+//        else
+//        {
+//            // 待插记录大于d中最小值，小于d中最大值，插到d的中间(需要移动d数组的元素)
+//            j=final++; // 移动d的尾部元素以便按序插入记录
+//            while(L.r[i].key<d[j].key)
+//            {
+//                d[(j+1)%L.length]=d[j];
+//                j=(j-1+L.length)%L.length;
+//            }
+//            d[j+1]=L.r[i];
+//        }
+//    }
+//    for(i=1; i<=L.length; i++) // 把d赋给L.r
+//        L.r[i]=d[(i+first-1)%L.length]; // 线性关系
+//}
 void shell_sort()
 {
     int i,j,tmp;
