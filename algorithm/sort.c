@@ -321,7 +321,31 @@ int less(int a,int b)
     }
 }
 
+
 //insert sort
+void straight_insert_sort()
+{
+    int i,j,tmp;
+
+    for(i=1; i<n; i++)
+    {
+        tmp = k[i];
+        printf("i=%d\tk[i]=%d\tk[i-1]=%d\ttmp = %d\n",i,k[i],k[i-1],tmp);
+        if(k[i] < k[i-1])
+        {
+            printf("\ni=%d\ttmp = %d\n",i,tmp);
+
+            for(j=i-1; k[j]>tmp; j--)
+            {
+                printf("i=%d\tj=%d\tk[j]:%d\tk[j+1]: %d\n",i,j,k[j],k[j+1]);
+                k[j+1] = k[j];
+            }
+            printf("j=%d\tk[j]=%d\n",j,k[j]);
+            k[j+1] = tmp;
+            printf("\n");
+        }
+    }
+}
 void shell_sort()
 {
     int i,j,tmp;
@@ -351,29 +375,7 @@ void shell_sort()
     }
     while(gap > 1);
 }
-void insert_sort()
-{
-    int i,j,tmp;
 
-    for(i=1; i<n; i++)
-    {
-        tmp = k[i];
-        printf("i=%d\tk[i]=%d\tk[i-1]=%d\ttmp = %d\n",i,k[i],k[i-1],tmp);
-        if(k[i] < k[i-1])
-        {
-            printf("\ni=%d\ttmp = %d\n",i,tmp);
-
-            for(j=i-1; k[j]>tmp; j--)
-            {
-                printf("i=%d\tj=%d\tk[j]:%d\tk[j+1]: %d\n",i,j,k[j],k[j+1]);
-                k[j+1] = k[j];
-            }
-            printf("j=%d\tk[j]=%d\n",j,k[j]);
-            k[j+1] = tmp;
-            printf("\n");
-        }
-    }
-}
 
 //select sort
 void select_sort()

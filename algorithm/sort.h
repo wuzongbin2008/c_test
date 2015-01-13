@@ -22,7 +22,7 @@ int less(int a,int b);
 
 void simple_select_sort();
 
-void insert_sort();
+void straight_insert_sort();
 void shell_sort();
 
 void quick_sort(int k[],int n);
