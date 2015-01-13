@@ -19,12 +19,15 @@ void sort_test()
 
     //iteration_merge_sort(k, n);
     sort_on_and_o1();
+
+    {
 //    printf("\nsort result:\n");
 //    for( i=1; i <= n; i++)
 //    {
 //        printf("%d\t", k[i]);
 //    }
 //    printf("\n");
+    }
 }
 
 /*
@@ -33,20 +36,64 @@ void sort_test()
 */
 void sort_on_and_o1()
 {
-    int temp, i;
-    int a[] = {10,6,9,5,2,8,4,7,1,3};
+    int temp, i, n = 0;
+    int a[] = {0, 2, 9, 5, 1, 8, 4, 7, 6, 3};
     int len = sizeof(a) / sizeof(int);
-
+    printf("len: %d\n", len);
+    //exit(EXIT_SUCCESS);
     for(i = 0; i < len; )
     {
-        temp = a[a[i] - 1];
-        a[a[i] - 1] = a[i];
-        a[i] = temp;
+        n++;
+        printf("n: %d\n", n);
 
         if (a[i] == i + 1)
+        {
             i++;
+        }
+        else{
+            temp = a[a[i] - 1];
+            a[a[i] - 1] = a[i];
+            a[i] = temp;
+        }
     }
+    printf("n: %d\n", n);
+    printf("i: %d\n", i);
     print_k(a, len);
+}
+void Swap(int *a, int *b)
+{
+	int temp = a;
+	a = b;
+	b = temp;
+}
+void ReverseArray()
+{
+    int arr[] = { 1, 23, 2, 34, 21, 45, 26, 22, 41, 66, 74, 91, 17, 64 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	int i;
+
+	if (arr == NULL || len <= 0)
+		printf("数组中无元素，变换毛线啊。");
+	else
+	{
+		int begin = 0;
+		int end = len - 1;
+		while (begin < end)
+		{
+		    printf("begin: %d\n", begin);
+		    printf("end: %d\n", end);
+			while (arr[begin] % 2 == 1 && end>begin)
+				begin++;
+			while (arr[end] % 2 == 0 && end > begin)
+				end--;
+			Swap(arr[begin], arr[end]);
+		}
+	}
+
+	printf("经过变换后的数组为：");
+	for (i = 0; i < len; i++)
+		printf("%d ", arr[i]);
+	printf("\n");
 }
 
 //radix sort
