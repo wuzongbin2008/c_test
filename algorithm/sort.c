@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "sort.h"
+
 #define N 10
 int n = 10;
 int k[] = {2,3,1,5,0,4,9,8,7,6};
@@ -16,7 +17,7 @@ void sort_test()
     int i;
 
     //iteration_merge_sort(k, n);
-    radix_sort();
+    binary_insert_sort();
     printf("\nsort result:\n");
     for( i=0; i < n; i++)
     {
@@ -360,27 +361,27 @@ void straight_insert_sort()
 //            L.r[j+1]=L.r[0]; // 插入到正确位置
 //        }
 //}
-void binary_insert_sort(SqList *L)
+// 对顺序表L作折半插入排序。算法10.2
+void binary_insert_sort()
 {
-    // 对顺序表L作折半插入排序。算法10.2
-    int i,j,m,low,high;
-    for(i=2; i<=L->length; ++i)
+    int i, j, m, low, high, tmp;
+    for (i=2; i<=n; ++i)
     {
-        L->r[0]=L->r[i]; // 将L.r[i]暂存到L.r[0]
+        tmp = k[i];
         low=1;
         high=i-1;
-        while(low<=high)
+        while (low <= high)
         {
             // 在r[low..high]中折半查找有序插入的位置
-            m=(low+high)/2; // 折半
-            if LT(L->r[0].key,L->r[m].key)
+            m = (low+high)/2; // 折半
+            if (tmp < k[m])
                 high=m-1; // 插入点在低半区
             else
                 low=m+1; // 插入点在高半区
         }
-        for(j=i-1; j>=high+1; --j)
-            L->r[j+1]=L.r[j]; // 记录后移
-        L->r[high+1]=L.r[0]; // 插入
+        for (j=i-1; j>=high+1; --j)
+            k[j+1] = k[j]; // 记录后移
+        k[high+1] = tmp; // 插入
     }
 }
 //void P2_InsertSort(SqList &L)

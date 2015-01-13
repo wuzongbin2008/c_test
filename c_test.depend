@@ -1,16 +1,20 @@
 # depslib dependency file v1.0
-1420907167 source:/project/c/c_test/algorithm/sort.c
+1421115680 source:/project/c/c_test/algorithm/sort.c
 	<stdio.h>
 	"sort.h"
 
-1420906839 /project/c/c_test/algorithm/sort.h
+1421115493 /project/c/c_test/algorithm/sort.h
+	<string.h>
+	<ctype.h>
+	<malloc.h>
+	<limits.h>
 	<stdio.h>
-	"c1.h"
-	"c10-3.h"
+	<stdlib.h>
+	<math.h>
 
 1416959801 ated upstream
 
-1420909784 source:/project/c/c_test/main.c
+1421115590 source:/project/c/c_test/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -32,14 +36,14 @@
 
 1416954903 /project/c/c_test/libevent/libevent_server.h
 
-1420909800 /project/c/c_test/string/str_test.h
+1421110897 /project/c/c_test/string/str_test.h
 
-1420909907 source:/project/c/c_test/string/str_test.c
+1421110897 source:/project/c/c_test/string/str_test.c
 	<stdio.h>
 	<string.h>
 	"str_test.h"
 
-1419693185 source:/project/c/c_test/common/getopt_test.c
+1421032760 source:/project/c/c_test/common/getopt_test.c
 	<getopt.h>
 	<stdio.h>
 	<stdlib.h>
@@ -73,10 +77,10 @@
 1419306567 source:/project/c/c_test/memory/mem_t.c
 	<unistd.h>
 
-1418110810 source:/project/c/c_test/common/limi_t.c
+1421032760 source:/project/c/c_test/common/limi_t.c
 	<sys/resource.h>
 
-1420900467 source:/project/c/c_test/file/file_test.c
+1421032760 source:/project/c/c_test/file/file_test.c
 	<stdio.h>
 	<stdint.h>
 	<sys/file.h>
@@ -85,9 +89,9 @@
 	<limits.h>
 	"file_test.h"
 
-1420900467 /project/c/c_test/file/file_test.h
+1421032760 /project/c/c_test/file/file_test.h
 
-1419693185 source:/project/c/c_test/file/test_write.c
+1421032760 source:/project/c/c_test/file/test_write.c
 	<stdio.h>
 	<sys/types.h>
 	<sys/stat.h>

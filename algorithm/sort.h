@@ -20,7 +20,10 @@
 #define MAX_NUM_OF_KEY 8 // 关键字项数的最大值
 #define RADIX 10 // 关键字基数，此时是十进制整数的基数
 #define MAX_SPACE 1000
-
+ // c9.h 对两个数值型关键字的比较约定为如下的宏定义
+ #define EQ(a,b) ((a)==(b))
+ #define LT(a,b) ((a)<(b))
+ #define LQ(a,b) ((a)<=(b))
 // #define OVERFLOW -2 因为在math.h中已定义OVERFLOW的值为3,故去掉此行
 typedef int Status; // Status是函数的类型,其值是函数结果状态代码，如OK等
 typedef int Boolean; // Boolean是布尔类型,其值是TRUE或FALSE
@@ -82,7 +85,7 @@ int less(int a,int b);
 void simple_select_sort();
 
 void straight_insert_sort();
-void binary_insert_sort(SqList *L);
+void binary_insert_sort();
 void shell_sort();
 
 void quick_sort(int k[],int n);
