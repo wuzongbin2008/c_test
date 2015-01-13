@@ -37,14 +37,14 @@ void sort_test()
 void sort_on_and_o1()
 {
     int temp, i, n = 0;
-    int a[] = {0, 2, 9, 5, 1, 8, 4, 7, 6, 3};
+    int a[] = {10, 2, 9, 5, 1, 8, 4, 7, 6, 3};
     int len = sizeof(a) / sizeof(int);
     printf("len: %d\n", len);
     //exit(EXIT_SUCCESS);
     for(i = 0; i < len; )
     {
         n++;
-        printf("n: %d\n", n);
+        //printf("n: %d\n", n);
 
         if (a[i] == i + 1)
         {
