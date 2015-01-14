@@ -96,6 +96,7 @@ void Swap(int *a, int *b)
 	b = temp;
 }
 
+
 //radix sort
 void radix_sort()
 {
@@ -262,6 +263,7 @@ void Rearrange(SLList *L,int adr[]) // 改此句(类型)
             adr[j]=j;
         }
 }
+
 
 //merge sort
 void iteration_merge_sort(int k[], int n)
@@ -569,6 +571,7 @@ void print_RedType(RedType *arr)
     printf("\n");
 }
 
+
 //select sort
 void select_sort()
 {
@@ -598,6 +601,7 @@ void select_sort()
     }
     printf("compare count: %d,\tmove count: %d\n",cnt1,cnt2);
 }
+
 
 //quick sort
 void quick_sort(int k[],int n)
@@ -644,6 +648,7 @@ void swap(int k[],int low,int high)
     k[low] = k[high];
     k[high] = temp;
 }
+
 
 //swap sort
 void bubble_sort(int k[],int n)

@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <stdint.h>
 
+#define a
+
 //#include "pthread/pthread_test.h"
 #include "algorithm/sort.h"
 //#include "libevent/libevent_server.h"
@@ -18,7 +20,9 @@ int main(int argc,char *argv[])
 {
     printf("hello world: %d\n", sizeof(uint32_t));
 
-    sort_test();
+    //sort_test();
+
+    printf("a: %s\n",a);
 
     return EXIT_SUCCESS;
 }
