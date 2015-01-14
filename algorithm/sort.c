@@ -396,7 +396,7 @@ int less(int a,int b)
 //insert sort
 void straight_insert_sort()
 {
-    // 对顺序表L作直接插入排序
+    // 直接插入排序
     int i,j,tmp;
 
     for(i=1; i<n; i++)
@@ -435,7 +435,7 @@ void straight_insert_sort()
 }
 void binary_insert_sort()
 {
-    // 对顺序表L作折半插入排序。算法10.2
+    // 折半插入排序。算法10.2
     int i, j, m, low, high, tmp, v;
     for (i=2; i<=n; ++i)
     {
@@ -461,62 +461,68 @@ void binary_insert_sort()
 void P2_InsertSort()
 {
     // 2_路插入排序
-    int i, j, first, final;
+    int i, j, first, final, v, first_v, final_v;
     //RedType *d;
     //d = (RedType*)malloc(N * sizeof(RedType)); // 生成L.length个记录的临时空间
     RedType d[N]={{49,1},{38,2},{65,3},{97,4},{76,5},{13,6},{27,7},{49,8},{55,9},{4,10}};
 
+    //init
     SqList L;
     int dt[3]={5,3,1}; // 增量序列数组
     for(i=0; i<N; i++)
      L.r[i+1]=d[i];
+    L.length=N;
+
     print_RedType(d);
     memset(d, 0, sizeof(d));
     printf("RedType d[N] memset :\n");
     print_RedType(d);
-
-    L.length=N;
     printf("l排序前:\n");
     print_SqList(L);
 
+    //sort
     d[0] = L.r[1]; // 设L的第1个记录为d中排好序的记录(在位置[0])
     first = final = 0; // first、final分别指示d中排好序的记录的第1个和最后1个记录的位置
-
     for(i=2; i<=L.length; ++i)
     {
         // 依次将L的第2个～最后1个记录插入d中
-        if(L.r[i].key<d[first].key)
+        v = L.r[i].key;
+        first_v = d[first].key;
+        final_v = d[final].key;
+        if(L.r[i].key < d[first].key)
         {
             // 待插记录小于d中最小值，插到d[first]之前(不需移动d数组的元素)
-            first=(first-1+L.length)%L.length; // 设d为循环向量
-            d[first]=L.r[i];
+            first = (first - 1 + L.length) % L.length; // 设d为循环向量
+            d[first] = L.r[i];
         }
-        else if(L.r[i].key>d[final].key)
+        else if(L.r[i].key > d[final].key)
         {
             // 待插记录大于d中最大值，插到d[final]之后(不需移动d数组的元素)
-            final=final+1;
-            d[final]=L.r[i];
+            final = final+1;
+            d[final] = L.r[i];
         }
         else
         {
             // 待插记录大于d中最小值，小于d中最大值，插到d的中间(需要移动d数组的元素)
-            j=final++; // 移动d的尾部元素以便按序插入记录
-            while(L.r[i].key<d[j].key)
+            j = final++; // 移动d的尾部元素以便按序插入记录
+            while(L.r[i].key < d[j].key)
             {
-                d[(j+1)%L.length]=d[j];
-                j=(j-1+L.length)%L.length;
+                d[(j + 1) % L.length] = d[j];
+                j=(j - 1 + L.length) % L.length;
             }
-            d[j+1]=L.r[i];
+            d[j+1] = L.r[i];
         }
     }
-    for(i=1; i<=L.length; i++) // 把d赋给L.r
-        L.r[i]=d[(i+first-1)%L.length]; // 线性关系
+
+    for(i=1; i <= L.length; i++) // 把d赋给L.r
+        L.r[i] = d[(i + first - 1) % L.length]; // 线性关系
 
     printf("l排序后:\n");
     print_SqList(L);
 }
 void shell_sort()
 {
+    //希尔排序
     int i,j,tmp;
     int gap = n;
 
