@@ -4,6 +4,7 @@ void switch_test()
 {
     char ch;
     ch = ';';
+
     switch(ch){
     case ';':
     case 'a':
