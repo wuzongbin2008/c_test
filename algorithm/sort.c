@@ -602,21 +602,21 @@ void select_sort()
     }
     printf("compare count: %d,\tmove count: %d\n",cnt1,cnt2);
 }
- #define N 8
- void HeapSort_test()
- {
-   RedType d[N]={{49,1},{38,2},{65,3},{97,4},{76,5},{13,6},{27,7},{49,8}};
-   HeapType h;
-   int i;
-   for(i=0;i<N;i++)
-     h.r[i+1]=d[i];
-   h.length=N;
-   printf("排序前:\n");
-   print_heapsort(h);
-   HeapSort(&h);
-   printf("排序后:\n");
-   print_heapsort(h);
- }
+#define N 8
+void HeapSort_test()
+{
+    RedType d[N]= {{49,1},{38,2},{65,3},{97,4},{76,5},{13,6},{27,7},{49,8}};
+    HeapType h;
+    int i;
+    for(i=0; i<N; i++)
+        h.r[i+1]=d[i];
+    h.length=N;
+    printf("排序前:\n");
+    print_heapsort(h);
+    HeapSort(&h);
+    printf("排序后:\n");
+    print_heapsort(h);
+}
 void HeapAdjust(HeapType *H,int s,int m) // 算法10.10
 {
     // 已知H->r[s..m]中记录的关键字除H->r[s].key之外均满足堆的定义，本函数
@@ -652,13 +652,14 @@ void HeapSort(HeapType *H)
         HeapAdjust(H,1,i-1); // 将H->r[1..i-1]重新调整为大顶堆
     }
 }
- void print_heapsort(HeapType H)
- {
-   int i;
-   for(i=1;i<=H.length;i++)
-     printf("(%d,%d)",H.r[i].key,H.r[i].otherinfo);
-   printf("\n");
- }
+void print_heapsort(HeapType H)
+{
+    int i;
+    for(i=1; i<=H.length; i++)
+        printf("(%d,%d)",H.r[i].key,H.r[i].otherinfo);
+    printf("\n");
+}
+
 
 //quick sort
 void quick_sort(int k[],int n)
