@@ -20,7 +20,7 @@ int main(int argc,char *argv[])
 {
     printf("hello world: %d\n", sizeof(uint32_t));
 
-    switch_test();
+    sort_test();
 
     return EXIT_SUCCESS;
 }

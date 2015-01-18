@@ -36,6 +36,7 @@ typedef char KeysType; // 定义关键字类型为字符型
 #define MAXSIZE 20 // 一个用作示例的小顺序表的最大长度
 typedef int KeyType; // 定义关键字类型为整型
 
+
 typedef struct  // 记录类型
 {
     KeyType key; // 关键字项
@@ -47,6 +48,7 @@ typedef struct  // 顺序表类型
     RedType r[MAXSIZE+1]; // r[0]闲置或用作哨兵单元
     int length; // 顺序表长度
 } SqList;
+typedef SqList HeapType; // 堆采用顺序表存储表示
 
 typedef struct  // 静态链表的结点类型
 {

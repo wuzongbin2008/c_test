@@ -18,7 +18,7 @@ void sort_test()
     int i;
 
     //iteration_merge_sort(k, n);
-    P2_InsertSort();
+    HeapSort_test();
 
     {
 //    printf("\nsort result:\n");
@@ -50,7 +50,8 @@ void sort_on_and_o1()
         {
             i++;
         }
-        else{
+        else
+        {
             temp = a[a[i] - 1];
             a[a[i] - 1] = a[i];
             a[i] = temp;
@@ -63,37 +64,37 @@ void sort_on_and_o1()
 void ReverseArray()
 {
     int arr[] = { 1, 23, 2, 34, 21, 45, 26, 22, 41, 66, 74, 91, 17, 64 };
-	int len = sizeof(arr) / sizeof(arr[0]);
-	int i;
+    int len = sizeof(arr) / sizeof(arr[0]);
+    int i;
 
-	if (arr == NULL || len <= 0)
-		printf("数组中无元素，变换毛线啊。");
-	else
-	{
-		int begin = 0;
-		int end = len - 1;
-		while (begin < end)
-		{
-		    printf("begin: %d\n", begin);
-		    printf("end: %d\n", end);
-			while (arr[begin] % 2 == 1 && end>begin)
-				begin++;
-			while (arr[end] % 2 == 0 && end > begin)
-				end--;
-			Swap(arr[begin], arr[end]);
-		}
-	}
+    if (arr == NULL || len <= 0)
+        printf("数组中无元素，变换毛线啊。");
+    else
+    {
+        int begin = 0;
+        int end = len - 1;
+        while (begin < end)
+        {
+            printf("begin: %d\n", begin);
+            printf("end: %d\n", end);
+            while (arr[begin] % 2 == 1 && end>begin)
+                begin++;
+            while (arr[end] % 2 == 0 && end > begin)
+                end--;
+            Swap(arr[begin], arr[end]);
+        }
+    }
 
-	printf("经过变换后的数组为：");
-	for (i = 0; i < len; i++)
-		printf("%d ", arr[i]);
-	printf("\n");
+    printf("经过变换后的数组为：");
+    for (i = 0; i < len; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
 }
 void Swap(int *a, int *b)
 {
-	int temp = a;
-	a = b;
-	b = temp;
+    int temp = a;
+    a = b;
+    b = temp;
 }
 
 
@@ -466,13 +467,13 @@ void P2_InsertSort()
     int i, j, first, final, v, first_v, final_v;
     //RedType *d;
     //d = (RedType*)malloc(N * sizeof(RedType)); // 生成L.length个记录的临时空间
-    RedType d[N]={{49,1},{38,2},{65,3},{97,4},{76,5},{13,6},{27,7},{49,8},{55,9},{4,10}};
+    RedType d[N]= {{49,1},{38,2},{65,3},{97,4},{76,5},{13,6},{27,7},{49,8},{55,9},{4,10}};
 
     //init
     SqList L;
-    int dt[3]={5,3,1}; // 增量序列数组
+    int dt[3]= {5,3,1}; // 增量序列数组
     for(i=0; i<N; i++)
-     L.r[i+1]=d[i];
+        L.r[i+1]=d[i];
     L.length=N;
 
     print_RedType(d);
@@ -555,8 +556,8 @@ void shell_sort()
 void print_SqList(SqList L)
 {
     int i;
-    for(i=1;i<=L.length;i++)
-     printf("%d ",L.r[i].key);
+    for(i=1; i<=L.length; i++)
+        printf("%d ",L.r[i].key);
     printf("\n");
 }
 void print_RedType(RedType *arr)
@@ -601,7 +602,63 @@ void select_sort()
     }
     printf("compare count: %d,\tmove count: %d\n",cnt1,cnt2);
 }
-
+ #define N 8
+ void HeapSort_test()
+ {
+   RedType d[N]={{49,1},{38,2},{65,3},{97,4},{76,5},{13,6},{27,7},{49,8}};
+   HeapType h;
+   int i;
+   for(i=0;i<N;i++)
+     h.r[i+1]=d[i];
+   h.length=N;
+   printf("排序前:\n");
+   print_heapsort(h);
+   HeapSort(&h);
+   printf("排序后:\n");
+   print_heapsort(h);
+ }
+void HeapAdjust(HeapType *H,int s,int m) // 算法10.10
+{
+    // 已知H->r[s..m]中记录的关键字除H->r[s].key之外均满足堆的定义，本函数
+    // 调整H->r[s]的关键字,使H->r[s..m]成为一个大顶堆(对其中记录的关键字而言)
+    RedType rc;
+    int j;
+    rc=H->r[s];
+    for(j=2*s; j<=m; j*=2)
+    {
+        // 沿key较大的孩子结点向下筛选
+        if(j<m&&LT(H->r[j].key,H->r[j+1].key))
+            ++j; // j为key较大的记录的下标
+        if(!LT(rc.key,H->r[j].key))
+            break; // rc应插入在位置s上
+        H->r[s]=H->r[j];
+        s=j;
+    }
+    H->r[s]=rc; // 插入
+}
+void HeapSort(HeapType *H)
+{
+    // 对顺序表H进行堆排序。算法10.11
+    RedType t;
+    int i;
+    for(i=H->length/2; i>0; --i) // 把H->r[1..H.length]建成大顶堆
+        HeapAdjust(H,i,H->length);
+    for(i=H->length; i>1; --i)
+    {
+        // 将堆顶记录和当前未经排序子序列H->r[1..i]中最后一个记录相互交换
+        t=H->r[1];
+        H->r[1]=H->r[i];
+        H->r[i]=t;
+        HeapAdjust(H,1,i-1); // 将H->r[1..i-1]重新调整为大顶堆
+    }
+}
+ void print_heapsort(HeapType H)
+ {
+   int i;
+   for(i=1;i<=H.length;i++)
+     printf("(%d,%d)",H.r[i].key,H.r[i].otherinfo);
+   printf("\n");
+ }
 
 //quick sort
 void quick_sort(int k[],int n)
