@@ -608,28 +608,32 @@ void HeapSort_test()
     RedType d[N]= {{49,1},{38,2},{65,3},{97,4},{76,5},{13,6},{27,7},{49,8}};
     HeapType h;
     int i;
+
     for(i=0; i<N; i++)
         h.r[i+1]=d[i];
     h.length=N;
+
     printf("排序前:\n");
     print_heapsort(h);
+
     HeapSort(&h);
+
     printf("排序后:\n");
     print_heapsort(h);
 }
-void HeapAdjust(HeapType *H,int s,int m) // 算法10.10
+void HeapAdjust(HeapType *H, int s, int m) // 算法10.10
 {
+    HeapType ht;
     //RedType d[N]= {{49,1},{38,2},{65,3},{97,4},{76,5},{13,6},{27,7},{49,8}};
     // 已知H->r[s..m]中记录的关键字除H->r[s].key之外均满足堆的定义，本函数
     // 调整H->r[s]的关键字,使H->r[s..m]成为一个大顶堆(对其中记录的关键字而言)
     RedType rc;
-    int j, t, t2;
+    int j, t, t2, t3;
     rc = H->r[s];
     for(j=2*s; j<=m; j*=2)
     {
         t = H->r[j].key;
         t2 = H->r[j+1].key;
-
         // 沿key较大的孩子结点向下筛选
         if(j<m && LT(H->r[j].key, H->r[j+1].key))
             ++j; // j为key较大的记录的下标
@@ -641,15 +645,23 @@ void HeapAdjust(HeapType *H,int s,int m) // 算法10.10
         s = j;
     }
     H->r[s] = rc; // 插入
+
+    //debug
+    ht = *H;
+    t3 = H->r[s].key;
 }
 void HeapSort(HeapType *H)
 {
     // 对顺序表H进行堆排序。算法10.11
     RedType t;
+    HeapType ht;
     int i;
 
     for(i=H->length/2; i>0; --i) // 把H->r[1..H.length]建成大顶堆
+    {
         HeapAdjust(H,i,H->length);
+        ht = *H;
+    }
 
     for(i=H->length; i>1; --i)
     {
