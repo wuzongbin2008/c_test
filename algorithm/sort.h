@@ -81,7 +81,7 @@ void Rearrange(SLList *L,int adr[]);
 void recursion_merge_sort(int k[], int n);
 void iteration_merge_sort(int k[], int n);
 void merging(int *list1, int size1, int *list2, int size2);
-void mergeAB(int c[],int a[],int n,int b[],int m);
+void mergeAB();
 int less(int a,int b);
 
 void simple_select_sort();
@@ -90,9 +90,10 @@ void straight_insert_sort();
 void binary_insert_sort();
 void P2_InsertSort();
 void shell_sort();
+void shell_sort2();
 void print_SqList(SqList L);
 
-void quick_sort(int k[],int n);
+void quick_sort();
 void qk_sort(int k[],int low ,int high);
 int partition(int k[],int low, int high);
 void swap(int k[],int low,int high);

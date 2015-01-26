@@ -4,7 +4,7 @@
 #define N 10
 int n = 10;
 //int k[] = {2,3,1,5,0,4,9,8,7,6};
-int k[] = {0,2,3,1,5,0,4,9,8,7,6};
+int k[] = {2,3,1,5,0,4,9,8,7,6};
 int a[] = {3,5,8};
 int b[] = {4,7,9,10};
 int c[7];
@@ -18,11 +18,11 @@ void sort_test()
     int i;
 
     //iteration_merge_sort(k, n);
-    HeapSort_test();
+    mergeAB();
 
     {
 //    printf("\nsort result:\n");
-//    for( i=1; i <= n; i++)
+//    for( i=0; i < n; i++)
 //    {
 //        printf("%d\t", k[i]);
 //    }
@@ -364,9 +364,10 @@ void merging(int *list1, int size1, int *list2, int size2)
         list1[m] = temp[m];
     }
 }
-void mergeAB(int c[],int a[],int n,int b[],int m)
+void mergeAB()
 {
     int i,j,k;
+    int n = 3, m=4;
     for(i=0,j=0,k=0; k < n+m ; k++)
     {
         if(i == n )
@@ -381,6 +382,9 @@ void mergeAB(int c[],int a[],int n,int b[],int m)
         }
         c[k] = (less(a[i],b[j])) ? a[i++] : b[j++];
     }
+
+    for(i=0; i<7; i++)
+        printf("%d\t", c[i]);
 }
 int less(int a,int b)
 {
@@ -531,27 +535,45 @@ void shell_sort()
 
     do
     {
-        gap = gap/3+1;
+        gap = gap/6+1;
         for(i=gap; i<n; i++)
         {
-            tmp = k[i];
-            printf("i=%d\tk[i]=%d\tk[i-1]=%d\ttmp = %d\n",i,k[i],k[i-1],tmp);
+            //printf("i=%d\tk[i]=%d\tk[i-1]=%d\ttmp = %d\n",i,k[i],k[i-1],tmp);
             if(k[i] < k[i-gap])
             {
-                printf("\ni=%d\ttmp = %d\n",i,tmp);
+                tmp = k[i];
+                //printf("\ni=%d\ttmp = %d\n",i,tmp);
 
                 for(j=i-gap; k[j]>tmp; j-=gap)
                 {
-                    printf("i=%d\tj=%d\tk[j]:%d\tk[j+1]: %d\n",i,j,k[j],k[j+1]);
+                    //printf("i=%d\tj=%d\tk[j]:%d\tk[j+1]: %d\n",i,j,k[j],k[j+1]);
                     k[j+gap] = k[j];
                 }
-                printf("j=%d\tk[j]=%d\n",j,k[j]);
+                //printf("j=%d\tk[j]=%d\n",j,k[j]);
                 k[j+gap] = tmp;
-                printf("\n");
+                //printf("\n");
             }
         }
     }
     while(gap > 1);
+}
+void shell_sort2()
+{
+    int i, j, tmp;
+    int dk = 3;
+
+    for(i=dk+1; i<n; i++)
+    {
+        if(k[i] < k[i-dk])
+        {
+            tmp = k[i];
+            for(j=i-dk; j>0 && tmp<k[j]; j-=dk)
+            {
+                k[j+dk] = k[j];
+            }
+            k[j+dk] = tmp;
+        }
+    }
 }
 void print_SqList(SqList L)
 {
@@ -682,7 +704,7 @@ void print_heapsort(HeapType H)
 
 
 //quick sort
-void quick_sort(int k[],int n)
+void quick_sort()
 {
     qk_sort(k,0,n-1);
 }

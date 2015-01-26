@@ -20,6 +20,7 @@ int main(int argc,char *argv[])
 {
     printf("hello world: %d\n", sizeof(uint32_t));
 
+    //printf("gap: %d", 10/3+1);
     sort_test();
 
     return EXIT_SUCCESS;
