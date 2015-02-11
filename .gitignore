@@ -1,0 +1,10 @@
+.idea/
+.idea
+*.log
+src/logs/
+logs/
+global.conf.php
+#*_test.php
+*.pyc
+obj/
+bin/
