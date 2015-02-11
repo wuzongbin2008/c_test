@@ -6,5 +6,7 @@ logs/
 global.conf.php
 #*_test.php
 *.pyc
-obj/
-bin/
+obj
+obj/*
+bin
+bin/*
