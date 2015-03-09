@@ -62,6 +62,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="string/str_test.h" />
+		<Unit filename="test.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

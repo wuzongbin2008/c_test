@@ -2,15 +2,18 @@
 #include <string.h>
 #include "str_test.h"
 
+#define LEN 10
+
 void str_test()
 {
     char *new;
     char *src = "strcpy test";
+    char arr[LEN] = "abc";
 
     new = alloca(strlen(src) * sizeof(char));
     strcpy_t(new, src);
 
-    printf("new: %s\n", new);
+    printf("\nnew: %s\narr: %s\n", new, arr);
 }
 
 void strcpy_t(char *dst, char const *src)

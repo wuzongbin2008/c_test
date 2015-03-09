@@ -1,0 +1,73 @@
+# depslib dependency file v1.0
+1423625975 source:/project/c/c_test/algorithm/sort.c
+	<stdio.h>
+	"sort.h"
+
+1423625975 /project/c/c_test/algorithm/sort.h
+	<string.h>
+	<ctype.h>
+	<malloc.h>
+	<limits.h>
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+
+1423625975 source:/project/c/c_test/common/getopt_test.c
+	<getopt.h>
+	<stdio.h>
+	<stdlib.h>
+	<errno.h>
+
+1423625975 source:/project/c/c_test/common/limi_t.c
+	<sys/resource.h>
+
+1423625975 source:/project/c/c_test/file/file_test.c
+	<stdio.h>
+	<stdint.h>
+	<sys/file.h>
+	<sys/stat.h>
+	<errno.h>
+	<limits.h>
+	"file_test.h"
+
+1423625975 /project/c/c_test/file/file_test.h
+
+1423625975 source:/project/c/c_test/file/test_write.c
+	<stdio.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<unistd.h>
+	<fcntl.h>
+	<string.h>
+	<stdlib.h>
+	<inttypes.h>
+	<errno.h>
+	<sys/ipc.h>
+	<sys/shm.h>
+	<ctype.h>
+	<sys/wait.h>
+
+1423627085 source:/project/c/c_test/macro/macro_t.c
+	<stdio.h>
+	"macro_t.h"
+
+1423627052 /project/c/c_test/macro/macro_t.h
+
+1425624732 source:/project/c/c_test/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<stdint.h>
+	"test.h"
+
+1425624812 source:/project/c/c_test/string/str_test.c
+	<stdio.h>
+	<string.h>
+	"str_test.h"
+
+1423625975 /project/c/c_test/string/str_test.h
+
+1425624724 /project/c/c_test/test.h
+	"string/str_test.h"
+
