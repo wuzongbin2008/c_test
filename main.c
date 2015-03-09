@@ -10,7 +10,7 @@ int main(int argc,char *argv[])
 {
     printf("hello world: %d\n", sizeof(uint32_t));
 
-    str_test();
+    getRemoteIp();
 
     return EXIT_SUCCESS;
 }

@@ -11,5 +11,6 @@
 //#include "common/limit_t.h"
 //#include "file/file_test.h"
 //#include "macro/macro_t.h"
+#include "socket/socket_t.h"
 
 #endif // TEST_H_INCLUDED
