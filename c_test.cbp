@@ -58,6 +58,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="socket/socket_t.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="socket/socket_t.h" />
 		<Unit filename="string/str_test.c">
 			<Option compilerVar="CC" />
 		</Unit>

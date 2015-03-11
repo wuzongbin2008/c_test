@@ -1,10 +1,46 @@
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 
-#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdarg.h>
+#include <getopt.h>
+#include "getopt.h"
+
+FILE *fp;
+
+int vfpf_t()
+{
+    int inumber = 30;
+    float fnumber = 90.0;
+    char string[4] = "abc";
+
+    fp = tmpfile();
+    if (fp == NULL)
+    {
+        perror("tmpfile() call");
+        exit(1);
+    }
+
+    vfpf("%d %f %s", inumber, fnumber, string);
+    rewind(fp);
+    fscanf(fp, "%d %f %s", &inumber, &fnumber, string);
+    printf("%d %f %s\n", inumber, fnumber, string);
+    fclose(fp);
+
+    return 0;
+}
+
+void vfpf(char* fmt, ...)
+{
+    va_list argptr;
+    int cnt = 0;
+
+    va_start(argptr, fmt);
+    cnt = vfprintf(fp, fmt, argptr);
+    va_end(argptr);
+}
 
 //static char *ecnotfs_config_file = "./ec_notfs.conf";
 void argv_t(int argc, char *argv[])

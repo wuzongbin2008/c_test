@@ -2,7 +2,7 @@
 
 void getRemoteIp()
 {
-    struct sockaddr_in sa;
+    struct sockaddr sa;
     int len = sizeof(sa);
 
     if (!getpeername(sockfd, (struct sockaddr *)&sa, &len))
