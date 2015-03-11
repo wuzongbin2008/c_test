@@ -6,13 +6,13 @@
 #include <errno.h>
 #include <stdarg.h>
 #include <getopt.h>
-#include "getopt.h"
+#include "getopt_test.h"
 
 FILE *fp;
 
 int vfpf_t()
 {
-    int inumber = 30;
+    int inumber = 30, m;
     float fnumber = 90.0;
     char string[4] = "abc";
 
@@ -32,7 +32,7 @@ int vfpf_t()
     return 0;
 }
 
-void vfpf(char* fmt, ...)
+int vfpf(char* fmt, ...)
 {
     va_list argptr;
     int cnt = 0;
@@ -40,6 +40,8 @@ void vfpf(char* fmt, ...)
     va_start(argptr, fmt);
     cnt = vfprintf(fp, fmt, argptr);
     va_end(argptr);
+
+    return 0;
 }
 
 //static char *ecnotfs_config_file = "./ec_notfs.conf";
