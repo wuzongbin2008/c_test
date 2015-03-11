@@ -55,7 +55,7 @@
 
 1423627052 /project/c/c_test/macro/macro_t.h
 
-1426064987 source:/project/c/c_test/main.c
+1426067714 source:/project/c/c_test/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -79,4 +79,13 @@
 
 1426065042 source:/project/c/c_test/preprocessor/preprocessor_t.c
 	"preprocessor_t.h"
+
+1426067704 source:/project/c/c_test/pthread/pthread_test.c
+	<errno.h>
+	<string.h>
+	<stdio.h>
+	"pthread_test.h"
+
+1423625975 /project/c/c_test/pthread/pthread_test.h
+	<pthread.h>
 

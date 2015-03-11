@@ -10,7 +10,7 @@ int main(int argc,char *argv[])
 {
     printf("hello world: %d\n", sizeof(uint32_t));
 
-    def_test();
+    pthread_key_create_demo();
 
     return EXIT_SUCCESS;
 }
