@@ -12,13 +12,13 @@
 	<stdlib.h>
 	<math.h>
 
-1426048257 source:/project/c/c_test/common/getopt_test.c
+1426057927 source:/project/c/c_test/common/getopt_test.c
 	<stdio.h>
 	<stdlib.h>
 	<errno.h>
 	<stdarg.h>
 	<getopt.h>
-	"getopt.h"
+	"getopt_test.h"
 
 1423625975 source:/project/c/c_test/common/limi_t.c
 	<sys/resource.h>
@@ -73,5 +73,5 @@
 1426046455 /project/c/c_test/test.h
 	"common/getopt_test.h"
 
-1426048257 /project/c/c_test/common/getopt_test.h
+1426057902 /project/c/c_test/common/getopt_test.h
 

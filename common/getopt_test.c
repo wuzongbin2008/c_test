@@ -6,6 +6,7 @@
 #include <errno.h>
 #include <stdarg.h>
 #include <getopt.h>
+
 #include "getopt_test.h"
 
 FILE *fp;
@@ -94,8 +95,8 @@ void getopt_test(int argc,char *argv[])
     int opt;
     char *optstring = "a:b:c:d";
 
-    printf("func name: %s\n",program_invocation_name);
-    printf("func short name: %s\n",program_invocation_short_name);
+    printf("func name: %s\n", program_invocation_name);
+    printf("func short name: %s\n", program_invocation_short_name);
     while ((opt = getopt(argc, argv, optstring)) != -1)
     {
         printf("opt = %c\n", opt);
@@ -110,7 +111,7 @@ void getopt_test(int argc,char *argv[])
 /*
 * ./test -a 100 --reqarg 100 --nonarg
 */
-void getopt_long_test(int argc,char *argv[])
+void getopt_long_test(int argc, char *argv[])
 {
     int opt;
     //int digit_optind = 0;
