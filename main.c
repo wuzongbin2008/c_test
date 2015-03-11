@@ -10,9 +10,7 @@ int main(int argc,char *argv[])
 {
     printf("hello world: %d\n", sizeof(uint32_t));
 
-    if (T == 1){
-            def_test();
-    }
+    def_test();
 
     return EXIT_SUCCESS;
 }
