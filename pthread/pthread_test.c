@@ -5,10 +5,12 @@
 
 thread_attr *attr;
 pthread_key_t key;
+
 struct test_struct {
     int i;
     float k;
 };
+
 void *child1 (void *arg)
 {
     struct test_struct struct_data;

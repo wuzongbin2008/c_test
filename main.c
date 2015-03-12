@@ -8,7 +8,7 @@
 
 int main(int argc,char *argv[])
 {
-    printf("hello world: %d\n", sizeof(uint32_t));
+    printf("hello world: %d\n\n", sizeof(uint32_t));
 
     pthread_key_create_demo();
 

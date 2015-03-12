@@ -58,10 +58,14 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="socket/socket_t.c">
+		<Unit filename="preprocessor/preprocessor_t.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="socket/socket_t.h" />
+		<Unit filename="preprocessor/preprocessor_t.h" />
+		<Unit filename="pthread/pthread_test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pthread/pthread_test.h" />
 		<Unit filename="string/str_test.c">
 			<Option compilerVar="CC" />
 		</Unit>
