@@ -12,12 +12,13 @@
 	<stdlib.h>
 	<math.h>
 
-1426059700 source:/project/c/c_test/common/getopt_test.c
+1426235320 source:/project/c/c_test/common/getopt_test.c
 	<stdio.h>
 	<stdlib.h>
 	<errno.h>
 	<stdarg.h>
 	<getopt.h>
+	<sys/stat.h>
 	"getopt_test.h"
 
 1423625975 source:/project/c/c_test/common/limi_t.c
@@ -55,13 +56,12 @@
 
 1423627052 /project/c/c_test/macro/macro_t.h
 
-1426233416 source:/project/c/c_test/main.c
+1426235824 source:/project/c/c_test/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<unistd.h>
 	<stdint.h>
-	<stdarg.h>
 	"test.h"
 
 1425624853 source:/project/c/c_test/string/str_test.c
@@ -71,14 +71,17 @@
 
 1423625975 /project/c/c_test/string/str_test.h
 
-1426231893 /project/c/c_test/test.h
-	"common/getopt_test.h"
+1426235662 /project/c/c_test/test.h
+	"preprocessor/preprocessor_t.h"
 
 1426057902 /project/c/c_test/common/getopt_test.h
 
-1426065112 /project/c/c_test/preprocessor/preprocessor_t.h
+1426235766 /project/c/c_test/preprocessor/preprocessor_t.h
+	<stdio.h>
+	<sys/stat.h>
 
-1426065042 source:/project/c/c_test/preprocessor/preprocessor_t.c
+1426235822 source:/project/c/c_test/preprocessor/preprocessor_t.c
+	<stdarg.h>
 	"preprocessor_t.h"
 
 1426130682 source:/project/c/c_test/pthread/pthread_test.c
