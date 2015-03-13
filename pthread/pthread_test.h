@@ -3,6 +3,11 @@
 
 #include <pthread.h>
 
+typedef struct {
+    int i;
+    float k;
+} test_struct;
+
 typedef struct thread_create_param{
     int id;
     char *name;

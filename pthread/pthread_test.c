@@ -5,32 +5,30 @@
 
 thread_attr *attr;
 pthread_key_t key;
-
-struct test_struct {
-    int i;
-    float k;
-};
+test_struct *key_p;
 
 void *child1 (void *arg)
 {
-    struct test_struct struct_data;
+    test_struct struct_data;
     struct_data.i = 10;
     struct_data.k = 3.1415;
     pthread_setspecific (key, &struct_data);
-    printf ("结构体struct_data的地址为 0x%p\n", &(struct_data));
-    printf ("child1 中 pthread_getspecific(key)返回的指针为:0x%p\n", (struct test_struct *)pthread_getspecific(key));
-    printf ("利用 pthread_getspecific(key)打印 child1 线程中与key关联的结构体中成员值:\nstruct_data.i:%d\nstruct_data.k: %f\n", ((struct test_struct *)pthread_getspecific (key))->i, ((struct test_struct *)pthread_getspecific(key))->k);
-    printf ("------------------------------------------------------\n");
+    printf ("结构体struct_data的地址为 0x%p\n\n", &(struct_data));
+    key_p = (struct test_struct *)pthread_getspecific(key);
+    printf ("child1 中 pthread_getspecific(key)返回的指针为:0x%p\n", key_p);
+    printf ("利用 pthread_getspecific(key)打印 child1 线程中与key关联的结构体中成员值:\nstruct_data.i:%d\nstruct_data.k: %f\n", key_p->i, key_p->k);
+    printf ("------------------------------------------------------\n\n");
 }
 
 void *child2 (void *arg)
 {
-    int temp = 20;
+    int temp = 20, *tmp_p;
     sleep (2);
     printf ("child2 中变量 temp 的地址为 0x%p\n",  &temp);
     pthread_setspecific (key, &temp);
-    printf ("child2 中 pthread_getspecific(key)返回的指针为:0x%p\n", (int *)pthread_getspecific(key));
-    printf ("利用 pthread_getspecific(key)打印 child2 线程中与key关联的整型变量temp 值:%d\n", *((int *)pthread_getspecific(key)));
+    tmp_p = (int *)pthread_getspecific(key);
+    printf ("child2 中 pthread_getspecific(key)返回的指针为:0x%p\n", tmp_p);
+    printf ("利用 pthread_getspecific(key)打印 child2 线程中与key关联的整型变量temp 值:%d\n", *(tmp_p));
 }
 
 int pthread_key_create_demo ()
