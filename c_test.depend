@@ -55,12 +55,13 @@
 
 1423627052 /project/c/c_test/macro/macro_t.h
 
-1426231816 source:/project/c/c_test/main.c
+1426233416 source:/project/c/c_test/main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<unistd.h>
 	<stdint.h>
+	<stdarg.h>
 	"test.h"
 
 1425624853 source:/project/c/c_test/string/str_test.c
@@ -70,9 +71,8 @@
 
 1423625975 /project/c/c_test/string/str_test.h
 
-1426231869 /project/c/c_test/test.h
+1426231893 /project/c/c_test/test.h
 	"common/getopt_test.h"
-	"preprocessor/preprocessor_t.h"
 
 1426057902 /project/c/c_test/common/getopt_test.h
 

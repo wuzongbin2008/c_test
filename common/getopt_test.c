@@ -6,6 +6,7 @@
 #include <errno.h>
 #include <stdarg.h>
 #include <getopt.h>
+#include <sys/stat.h>
 
 #include "getopt_test.h"
 
@@ -16,6 +17,7 @@ int vfpf_t()
     int inumber = 30, m;
     float fnumber = 90.0;
     char string[4] = "abc";
+    struct stat buf;
 
     fp = tmpfile();
     if (fp == NULL)
@@ -23,6 +25,8 @@ int vfpf_t()
         perror("tmpfile() call");
         exit(1);
     }
+    fstat(fp, &buf);
+    printf("mode: %d\n", buf.st_size);
 
     vfpf("%d %f %s", inumber, fnumber, string);
     rewind(fp);
