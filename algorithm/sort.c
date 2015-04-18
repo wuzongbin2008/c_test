@@ -18,16 +18,14 @@ void sort_test()
     int i;
 
     //iteration_merge_sort(k, n);
-    mergeAB();
+    straight_insert_sort2();
 
+    printf("\nsort result:\n");
+    for( i=0; i < n; i++)
     {
-//    printf("\nsort result:\n");
-//    for( i=0; i < n; i++)
-//    {
-//        printf("%d\t", k[i]);
-//    }
-//    printf("\n");
+        printf("%d\t", k[i]);
     }
+    printf("\n");
 }
 
 /*
@@ -439,6 +437,23 @@ void straight_insert_sort()
     //            L.r[j+1]=L.r[0]; // 插入到正确位置
     //        }
     //}
+}
+void straight_insert_sort2()
+{
+    int i, j, tmp;
+
+    for( i = 1; i < n; i++ )
+    {
+        for( j = i - 1; j > 0; j--)
+        {
+            if(k[j-1] > k[j])
+            {
+                tmp = k[j];
+                k[j] = k[j-1];
+                k[j-1] = tmp;
+            }
+        }
+    }
 }
 void binary_insert_sort()
 {

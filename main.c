@@ -11,7 +11,8 @@ int main(int argc, char *argv[])
     int size = 100;
     printf("hello world: %d\n\n", sizeof(uint32_t));
 
-    TSRM_ERROR((TSRM_ERROR_LEVEL_CORE, "Obtaining a new resource id, %d bytes", size));
+    //TSRM_ERROR((TSRM_ERROR_LEVEL_CORE, "Obtaining a new resource id, %d bytes", size));
+    sort_test();
 
     return EXIT_SUCCESS;
 }
